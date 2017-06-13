@@ -120,7 +120,30 @@
                       "Description": "Number of Availability Zones to use in the VPC. This must match your selections in the list of Availability Zones parameter.",
                       "Type"      : "String",
                       "Default"    : "2"
-                  }
+                  },
+                "ElasticSearchInstanceCount":{
+                      "Description" : "Elasticsearch instance count",
+                      "Type"        : "String",
+                      "Default"     : "1"
+                },
+                "ElasticSearchInstanceType":{
+                      "Description" : "Elasticsearch instance type",
+                      "Type"        : "String",
+                      "Default"     : "t2.medium.elasticsearch",
+                      "AllowedValues": ["t2.medium.elasticsearch","m3.medium.elasticsearch","m3.large.elasticsearch","m3.xlarge.elasticsearch","m3.2xlarge.elasticsearch"]
+                },
+                "ElasticSearchVolumeSize":{
+                      "Description" : "Elasticsearch instance Volume size",
+                      "Type"        : "String",
+                      "Default"     : "20"
+                },
+                "ElasticSearchVolumeType":{
+                      "Description" : "Elasticsearch instance Volume type",
+                      "Type"        : "String",
+                      "Default"     : "gp2",
+                      "AllowedValues": [ "gp2","standard","io1"]
+                }
+
 
   },
 
@@ -154,21 +177,27 @@
                   {
                     "Label" : { "default" : "Amazon EC2 Configuration" },
                     "Parameters" : [ "KeyPairName", "NATInstanceType", "InstanceType" ]
+                  },
+                  {
+                    "Label" : { "default" : "Amazon Elasticsearch Configuration" },
+                    "Parameters" : ["ElasticSearchInstanceType","ElasticSearchInstanceCount","ElasticSearchVolumeSize","ElasticSearchVolumeType"]
                   }
     ],
     "ParameterLabels" : {
-                    "AdministratorName"        : { "default" : "Administrator Name" },
-                    "AdminEmailID"             : { "default" : "Administrator Email"},
-                    "DatabaseUserName"         : { "default" : "Database User Name"},
-                    "DatabaseUserPassword"     : { "default" : "Database User Password"},
-                    "DatabaseName"             : { "default" : "Database Name"},
-                    "RDSClass"                 : { "default" : "RDS database type"},
-                    "RDSAllocatedStorage"      : { "default" : "RDS database storage"},
-                    "RedshiftClusterType"      : { "default" : "Redshift cluster type"},
-                    "RedshiftNodeType"         : { "default" : "Redshift node type"},
-                    "InstanceType"             : { "default" : "EC2 webserver type"},
-                    "NoOfAzs"                  : { "default" : "Number of AvailabilityZones"},
-                    "NATInstanceType"          : { "default" : "NAT Instance type"}
+                    "AdministratorName"             : { "default" : "Administrator Name" },
+                    "AdminEmailID"                  : { "default" : "Administrator Email"},
+                    "DatabaseUserName"              : { "default" : "Database User Name"},
+                    "DatabaseUserPassword"           : { "default" : "Database User Password"},
+                    "DatabaseName"                   : { "default" : "Database Name"},
+                    "RDSClass"                       : { "default" : "RDS database type"},
+                    "RDSAllocatedStorage"            : { "default" : "RDS database storage"},
+                    "RedshiftClusterType"            : { "default" : "Redshift cluster type"},
+                    "RedshiftNodeType"               : { "default" : "Redshift node type"},
+                    "InstanceType"                   : { "default" : "EC2 webserver type"},
+                    "NoOfAzs"                        : { "default" : "Number of AvailabilityZones"},
+                    "NATInstanceType"                : { "default" : "NAT Instance type"},
+                    "ElasticSearchInstanceCount"     : {"default" : "ElasticSearch Instance count"},
+                    "ElasticSearchInstanceType"      : {"default" : "ElasticSearch Instance type"}
     }
   }
 },
@@ -327,7 +356,12 @@
                               "WebserverSecurityGroups"    : {"Fn::GetAtt": ["SecurityGroupStack", "Outputs.WebserverSecurityGroup"]} ,
                               "AdminEmailID"               : {"Ref":"AdminEmailID"},
                               "QSS3BucketName"             : {"Ref":"QSS3BucketName"},
-                              "QSS3KeyPrefix"              : {"Ref":"QSS3KeyPrefix"}
+                              "QSS3KeyPrefix"              : {"Ref":"QSS3KeyPrefix"},
+
+                              "ElasticSearchVolumeSize"    : {"Ref":"ElasticSearchVolumeSize"},
+                              "ElasticSearchVolumeType"    : {"Ref":"ElasticSearchVolumeType"},
+                              "ElasticSearchInstanceType"  : {"Ref":"ElasticSearchInstanceType"},
+                              "ElasticSearchInstanceCount" : {"Ref":"ElasticSearchInstanceCount"}
 
                             }
                         }
