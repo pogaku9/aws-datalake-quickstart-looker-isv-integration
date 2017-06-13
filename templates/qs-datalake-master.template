@@ -307,22 +307,22 @@
                             "Parameters" : {
 
 
-                              "SubnetId1" : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet1AID"]},
-                              "SubnetId2" : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet2AID"]},
+                              "PrivateSubnet1"            : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet1AID"]},
+                              "PrivateSubnet2"            : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet2AID"]},
                               "DBName"                    : {"Ref": "DatabaseName"},
                               "AllocatedStorage"          : { "Ref"   : "RDSAllocatedStorage" },
                               "DBInstanceClass"           : { "Ref"   : "RDSClass" },
                               "MasterUsername"            : { "Ref"   : "DatabaseUserName" } ,
                               "MasterUserPassword"        : { "Ref"   : "DatabaseUserPassword" },
-                              "RDSVpcSecurityGroups"        : {"Fn::GetAtt": ["SecurityGroupStack", "Outputs.RDSSecurityGroup"]},
+                              "RDSVpcSecurityGroups"      : {"Fn::GetAtt": ["SecurityGroupStack", "Outputs.RDSSecurityGroup"]},
 
                               "NodeType"                    : { "Ref" : "RedshiftNodeType" },
                               "ClusterType"                 : { "Ref" : "RedshiftClusterType" },
                               "NumberOfNodes"               : {"Ref" : "NumberOfNodes"},
                               "RedshiftVpcSecurityGroupIds" : {"Fn::GetAtt": ["SecurityGroupStack", "Outputs.RedshiftSecurityGroup"]} ,
 
-                              "VPCZoneIdentifier1"         : {"Fn::GetAtt": ["VPCStack", "Outputs.PublicSubnet1ID"]},
-                              "VPCZoneIdentifier2"         : {"Fn::GetAtt": ["VPCStack", "Outputs.PublicSubnet2ID"]},
+                              "PublicSubnet1"               : {"Fn::GetAtt": ["VPCStack", "Outputs.PublicSubnet1ID"]},
+                              "PublicSubnet2"               : {"Fn::GetAtt": ["VPCStack", "Outputs.PublicSubnet2ID"]},
                               "InstanceType"               : { "Ref" : "InstanceType" },
                               "WebserverSecurityGroups"    : {"Fn::GetAtt": ["SecurityGroupStack", "Outputs.WebserverSecurityGroup"]} ,
                               "AdminEmailID"               : {"Ref":"AdminEmailID"},

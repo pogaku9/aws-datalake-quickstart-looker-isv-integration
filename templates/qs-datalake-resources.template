@@ -101,29 +101,34 @@
                       "Default"    : "2"
                   },
 
-                "VPCZoneIdentifier1"           : {
-                  "Description": "VPCZoneIdentifier1",
-                  "Type": "String"
+                "PublicSubnet1"           : {
+                      "Description": "Public Subnet for web server group",
+                      "Type": "String"
                 },
-                "VPCZoneIdentifier2"           : {
-                  "Description": "VPCZoneIdentifier2",
-                  "Type": "String"
+                "PublicSubnet2"           : {
+                      "Description": "Public Subnet for web server group",
+                      "Type": "String"
                 },
                 "RedshiftVpcSecurityGroupIds" : {
-                  "Description": "RedshiftVpcSecurityGroupIds",
-                  "Type": "String"},
+                      "Description": "Security Groups for Redshift cluster",
+                      "Type": "String"
+                },
                 "RDSVpcSecurityGroups"        : {
-                  "Description": "RDSVpcSecurityGroups",
-                  "Type": "String"},
+                      "Description": "Security Groups for RDS database",
+                      "Type": "String"
+                },
                 "WebserverSecurityGroups"     : {
-                  "Description": "WebserverSecurityGroups",
-                  "Type": "String"},
-                "SubnetId1"                   : {
-                  "Description": "SubnetId1",
-                  "Type": "String"},
-                "SubnetId2"                   : {
-                    "Description": "SubnetId2",
-                    "Type": "String"}
+                      "Description": "Security Groups for data lake web server",
+                      "Type": "String"
+                },
+                "PrivateSubnet1"                   : {
+                      "Description": "Private Subnet for RDS and Redshift cluster group",
+                      "Type": "String"
+                },
+                "PrivateSubnet2"                   : {
+                        "Description": "Private Subnet for RDS and Redshift cluster group",
+                        "Type": "String"
+                }
   },
 
 
@@ -170,7 +175,7 @@
         "Type"          : "AWS::RDS::DBSubnetGroup",
         "Properties"    : {
           "DBSubnetGroupDescription"  : "Subnets available for the RDS DB Instance",
-          "SubnetIds"                 : [{"Ref": "SubnetId1"},{"Ref": "SubnetId2"}]
+          "SubnetIds"                 : [{"Ref": "PrivateSubnet1"},{"Ref": "PrivateSubnet2"}]
         }
       },
     "RDSdb" : {
@@ -228,7 +233,7 @@
             "Type"          : "AWS::Redshift::ClusterSubnetGroup",
             "Properties"    : {
                 "Description"             : "Cluster subnet group",
-                "SubnetIds"                 : [{"Ref": "SubnetId1"},{"Ref": "SubnetId2"}]
+                "SubnetIds"                 : [{"Ref": "PrivateSubnet1"},{"Ref": "PrivateSubnet2"}]
                             }
             },
 
@@ -697,7 +702,7 @@
     "WebServerGroup" : {
        "Type" : "AWS::AutoScaling::AutoScalingGroup",
        "Properties" : {
-          "VPCZoneIdentifier"       : [{"Ref": "VPCZoneIdentifier1"},{"Ref": "VPCZoneIdentifier2"}],
+          "VPCZoneIdentifier"       : [{"Ref": "PublicSubnet1"},{"Ref": "PublicSubnet2"}],
           "LaunchConfigurationName" : { "Ref" : "LaunchConfig" },
           "MaxSize" : "1",
           "MinSize" : "1",
