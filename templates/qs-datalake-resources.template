@@ -128,6 +128,28 @@
                 "PrivateSubnet2"                   : {
                         "Description": "Private Subnet for RDS and Redshift cluster group",
                         "Type": "String"
+                },
+                "ElasticSearchInstanceCount":{
+                      "Description" : "Elasticsearch instance count",
+                      "Type"        : "String",
+                      "Default"     : "1"
+                },
+                "ElasticSearchInstanceType":{
+                      "Description" : "Elasticsearch instance type",
+                      "Type"        : "String",
+                      "Default"     : "t2.medium.elasticsearch",
+                      "AllowedValues": ["t2.medium.elasticsearch","m3.medium.elasticsearch","m3.large.elasticsearch","m3.xlarge.elasticsearch","m3.2xlarge.elasticsearch"]
+                },
+                "ElasticSearchVolumeSize":{
+                      "Description" : "Elasticsearch instance Volume size",
+                      "Type"        : "String",
+                      "Default"     : "20"
+                },
+                "ElasticSearchVolumeType":{
+                      "Description" : "Elasticsearch instance Volume type",
+                      "Type"        : "String",
+                      "Default"     : "gp2",
+                      "AllowedValues": [ "gp2","standard","io1"]
                 }
   },
 
@@ -244,15 +266,15 @@
           "ElasticsearchVersion": "5.1",
           "ElasticsearchClusterConfig": {
                                      "DedicatedMasterEnabled"      : "false",
-                                     "InstanceCount"               : "1",
+                                     "InstanceCount"               : {"Ref": "ElasticSearchInstanceCount"},
                                       "ZoneAwarenessEnabled"        : false,
-                                     "InstanceType"                : "t2.medium.elasticsearch"
+                                     "InstanceType"                : {"Ref": "ElasticSearchInstanceType"}
                                        },
          "EBSOptions"                : {
                                      "EBSEnabled": true,
                                      "Iops": 0,
-                                     "VolumeSize": 20,
-                                     "VolumeType": "gp2"
+                                     "VolumeSize": {"Ref" : "ElasticSearchVolumeSize"},
+                                     "VolumeType": {"Ref" : "ElasticSearchVolumeType"}
                        },
          "SnapshotOptions"           : {
                                      "AutomatedSnapshotStartHour": "0"
