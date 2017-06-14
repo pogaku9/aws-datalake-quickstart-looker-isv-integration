@@ -268,13 +268,21 @@
                                      "DedicatedMasterEnabled"      : "false",
                                      "InstanceCount"               : {"Ref": "ElasticSearchInstanceCount"},
                                       "ZoneAwarenessEnabled"        : false,
+<<<<<<< HEAD
                                      "InstanceType"                : {"Ref": "ElasticSearchInstanceType"}
+=======
+                                     "InstanceType"                : {"Ref": "ElasticSearchInstanceType"},
+>>>>>>> 283ed0b26444c65154cf6400466b7c8703c0ab5d
                                        },
          "EBSOptions"                : {
                                      "EBSEnabled": true,
                                      "Iops": 0,
                                      "VolumeSize": {"Ref" : "ElasticSearchVolumeSize"},
+<<<<<<< HEAD
                                      "VolumeType": {"Ref" : "ElasticSearchVolumeType"}
+=======
+                                     "VolumeType": {"Ref" : "ElasticSearchVolumeType"},
+>>>>>>> 283ed0b26444c65154cf6400466b7c8703c0ab5d
                        },
          "SnapshotOptions"           : {
                                      "AutomatedSnapshotStartHour": "0"
