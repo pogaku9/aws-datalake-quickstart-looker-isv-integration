@@ -362,16 +362,9 @@
                               "ElasticSearchVolumeType"    : {"Ref":"ElasticSearchVolumeType"},
                               "ElasticSearchInstanceType"  : {"Ref":"ElasticSearchInstanceType"},
                               "ElasticSearchInstanceCount" : {"Ref":"ElasticSearchInstanceCount"}
-
                             }
                         }
                     }
-
-
-
-
-
-
 
   },
   "Outputs" : {
