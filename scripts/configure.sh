@@ -89,7 +89,7 @@ echo "FirstRun-ElasticsearchIndexCreation-check"
 fi
 
 ######TaskRunner#######################################################
-mkdir -p /home/ec2-user/TaskRunner; wget -A.jar ${QuickStartS3URL}/${QSS3BucketName}/${QSS3KeyPrefix}/scripts/resources/TaskRunner-1.0.jar; mv TaskRunner-1.0.jar /home/ec2-user/TaskRunner/.; cd /home/ec2-user/TaskRunner; java -jar TaskRunner-1.0.jar --workerGroup=${WORKERGROUP} --region=${REGION} --logUri=s3://${BUCKET}/TaskRunnerLogs --taskrunnerId ${TASKRUNNER} > TaskRunner.out 2>&1 < /dev/null &
+mkdir -p /home/ec2-user/TaskRunner; wget -A.jar https://s3.amazonaws.com/datapipeline-us-east-1/us-east-1/software/latest/TaskRunner/TaskRunner-1.0.jar --no-check-certificate; mv TaskRunner-1.0.jar /home/ec2-user/TaskRunner/.; cd /home/ec2-user/TaskRunner; java -jar TaskRunner-1.0.jar --workerGroup=${WORKERGROUP} --region=${REGION} --logUri=s3://${BUCKET}/TaskRunnerLogs --taskrunnerId ${TASKRUNNER} > TaskRunner.out 2>&1 < /dev/null &
 
 
 cat <<EOT >> /var/www/html/root/datalake.ini
