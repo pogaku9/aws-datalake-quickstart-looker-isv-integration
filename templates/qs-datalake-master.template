@@ -143,8 +143,6 @@
                       "Default"     : "gp2",
                       "AllowedValues": [ "gp2","standard","io1"]
                 }
-
-
   },
 
   "Metadata" : {
@@ -212,7 +210,8 @@
   "Mappings"  : {
               "AWSAMItoRegionMap" : {
                                   "us-east-1"      : {"Name" :  "ami-7a3dd76c"},
-                                  "us-west-2"      : {"Name" :  "ami-8a72cdea"}
+                                  "us-west-2"      : {"Name" :  "ami-8a72cdea"},
+								  "eu-west-1"	   : {"Name" :  "ami-c4bba0a2"}
                             },
 
               "RDSEngineVersionMapping" : {
@@ -226,8 +225,12 @@
                           },
                           "us-west-2": {
                               "Partition": "aws",
-                              "QuickStartS3URL": "https://s3.amazonaws.com"
-                          }
+                              "QuickStartS3URL": "https://s3-us-west-2.amazonaws.com"
+                          },
+						  "eu-west-1": {
+							  "Partition": "aws",
+                              "QuickStartS3URL": "https://s3-eu-west-1.amazonaws.com"
+						  }
                         }
       },
   "Resources" : {
@@ -335,10 +338,13 @@
                             },
                             "Parameters" : {
 
-
                               "PrivateSubnet1"            : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet1AID"]},
                               "PrivateSubnet2"            : {"Fn::GetAtt": ["VPCStack", "Outputs.PrivateSubnet2AID"]},
                               "DBName"                    : {"Ref": "DatabaseName"},
+							  "MasterStackID"			  : {"Ref": "AWS::StackId"},
+							  "TagSuffix" : {"Fn::Select": ["4", {"Fn::Split": ["-", {"Fn::Select": ["2", {"Fn::Split": ["/", {"Ref":"AWS::StackId"}]}]}]}]},
+							  "AWSRegion"				  : {"Ref": "AWS::Region"},
+							  "AWSAccountID"			  : {"Ref": "AWS::AccountId"},
                               "AllocatedStorage"          : { "Ref"   : "RDSAllocatedStorage" },
                               "DBInstanceClass"           : { "Ref"   : "RDSClass" },
                               "MasterUsername"            : { "Ref"   : "DatabaseUserName" } ,
@@ -361,7 +367,8 @@
                               "ElasticSearchVolumeSize"    : {"Ref":"ElasticSearchVolumeSize"},
                               "ElasticSearchVolumeType"    : {"Ref":"ElasticSearchVolumeType"},
                               "ElasticSearchInstanceType"  : {"Ref":"ElasticSearchInstanceType"},
-                              "ElasticSearchInstanceCount" : {"Ref":"ElasticSearchInstanceCount"}
+                              "ElasticSearchInstanceCount" : {"Ref":"ElasticSearchInstanceCount"},					
+							  "KeyPairName" : {"Ref":"KeyPairName"}
                             }
                         }
                     }
