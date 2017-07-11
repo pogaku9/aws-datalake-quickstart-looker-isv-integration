@@ -304,7 +304,8 @@
                         ]
                     },
                     "Parameters" : {
-                      "VPC" : {"Fn::GetAtt": ["VPCStack", "Outputs.VPCID"]}
+                      "VPC" : {"Fn::GetAtt": ["VPCStack", "Outputs.VPCID"]},
+                      "VPCCIDR" : {"Fn::GetAtt": ["VPCStack", "Outputs.VPCCIDR"]}
                     }
                 }
             },
