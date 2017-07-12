@@ -1726,15 +1726,11 @@
 						"Fn::Join": ["", [
 							"#!/bin/bash -xev \n",
 							"yum install -y aws-cfn-bootstrap\n",
-							"wget ", " ", {
-								"Fn::FindInMap": ["AWSInfoRegionMap", {
-									"Ref": "AWSRegion"
-								}, "QuickStartS3URL"]
-							}, "/", {
+							"aws s3 cp", " s3://", {
 								"Ref": "QSS3BucketName"
 							}, "/", {
 								"Ref": "QSS3KeyPrefix"
-							}, "/scripts/repo/dlpackages.repo -O /etc/yum.repos.d/dlpackages.repo\n",
+							}, "/scripts/repo/dlpackages.repo dlpackages.repo --region ", {"Ref": "AWSRegion"}, "; mv dlpackages.repo /etc/yum.repos.d/dlpackages.repo\n",
 							"yum clean all\n", "/opt/aws/bin/cfn-init ",
 							" --stack ", {
 								"Ref": "AWS::StackName"
@@ -1744,16 +1740,12 @@
 							" --region ", {
 								"Ref": "AWSRegion"
 							}, "\n",
-							"wget ", " ", {
-								"Fn::FindInMap": ["AWSInfoRegionMap", {
-									"Ref": "AWSRegion"
-								}, "QuickStartS3URL"]
-							}, "/", {
+							"aws s3 cp", " s3://", {
 								"Ref": "QSS3BucketName"
 							}, "/", {
 								"Ref": "QSS3KeyPrefix"
 							}, 
-							"/scripts/configure.sh;cat configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
+							"/scripts/configure.sh configure.sh --region ", {"Ref": "AWSRegion"}, ";cat configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
 						]]
 					}
 				},

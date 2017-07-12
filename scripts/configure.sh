@@ -65,7 +65,7 @@ if ! aws s3 cp s3://${BUCKET}/multiAZ/instance.active instance.active --region $
 then
 
 # Setup catalog lambda code
-wget -A.zip ${QuickStartS3URL}/${QSS3BucketName}/${QSS3KeyPrefix}/scripts/lambdas/writetoES.zip; mkdir -p /var/www/html/lambes; unzip writetoES.zip -d /var/www/html/lambes; sed -ie "s|oldelasticsearchep|${ELASTICSEARCHEP}|g" /var/www/html/lambes/writetoES/lambda_function.py; rm -rf writetoES.zip;cd /var/www/html/lambes/writetoES;zip -r writetoESX.zip *;aws s3 cp writetoESX.zip s3://$BUCKET/lambdas/writetoESX.zip --region $REGION --sse AES256;
+aws s3 cp s3://${QSS3BucketName}/${QSS3KeyPrefix}/scripts/lambdas/writetoES.zip writetoES.zip --region ${REGION}; mkdir -p /var/www/html/lambes; unzip writetoES.zip -d /var/www/html/lambes; sed -ie "s|oldelasticsearchep|${ELASTICSEARCHEP}|g" /var/www/html/lambes/writetoES/lambda_function.py; rm -rf writetoES.zip;cd /var/www/html/lambes/writetoES;zip -r writetoESX.zip *;aws s3 cp writetoESX.zip s3://$BUCKET/lambdas/writetoESX.zip --region $REGION --sse AES256;
 
 /opt/aws/bin/cfn-signal -e 0 ${WAITCONDITION}
 echo "FirstRun-Lambda-signal-check"
@@ -73,7 +73,7 @@ fi
 
 
 ##########WebApp configuration########################################
-wget -A.zip ${QuickStartS3URL}/${QSS3BucketName}/${QSS3KeyPrefix}/scripts/web/datalake.zip; unzip datalake.zip -d /var/www/html; chmod 777 /var/www/html/home/welcome*;
+aws s3 cp s3://${QSS3BucketName}/${QSS3KeyPrefix}/scripts/web/datalake.zip datalake.zip --region ${REGION}; unzip datalake.zip -d /var/www/html; chmod 777 /var/www/html/home/welcome*;
 rm -rf /etc/php.ini; mv /var/www/html/configurations/php.ini /etc/php.ini;chown apache:apache /etc/php.ini; chown -R apache:apache /var/www/html;service httpd restart;
 
 #Zeppelin configuration
