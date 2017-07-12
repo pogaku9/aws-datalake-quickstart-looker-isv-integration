@@ -1556,7 +1556,14 @@
 			"Type": "AWS::AutoScaling::LaunchConfiguration",
 			"Metadata": {
 				"Comment1": "Configure the bootstrap helpers to install the Apache Web Server and PHP",
-
+                "AWS::CloudFormation::Authentication": {
+                    "S3AccessCreds": {
+                        "type": "S3",
+                        "roleName": {
+                            "Ref": "EC2WebserverRole"
+                        }
+                    }
+                },
 				"AWS::CloudFormation::Init": {
 					"configSets": {
 						"Install": ["Install", "Fileset"]
@@ -1564,6 +1571,107 @@
 
 					"Fileset": {
 						"files": {
+							"/etc/yum.repos.d/dlpackages.repo": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/repo/dlpackages.repo"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/configure.sh": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/configure.sh"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/writetoES.zip": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/lambdas/writetoES.zip"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/datalake.zip": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/web/datalake.zip"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/zeppelin-0.7.2-bin-all.tgz": {
+                                "source": "http://apache.claz.org/zeppelin/zeppelin-0.7.2/zeppelin-0.7.2-bin-all.tgz",
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root"
+                            },
+							"/home/ec2-user/TaskRunner-1.0.jar": {
+                                "source": "https://s3.amazonaws.com/datapipeline-us-east-1/us-east-1/software/latest/TaskRunner/TaskRunner-1.0.jar",
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
 							"/tmp/dl-parameters.file": {
 								"content": {
 									"Fn::Join": [
@@ -1726,11 +1834,6 @@
 						"Fn::Join": ["", [
 							"#!/bin/bash -xev \n",
 							"yum install -y aws-cfn-bootstrap\n",
-							"aws s3 cp", " s3://", {
-								"Ref": "QSS3BucketName"
-							}, "/", {
-								"Ref": "QSS3KeyPrefix"
-							}, "/scripts/repo/dlpackages.repo dlpackages.repo --region ", {"Ref": "AWSRegion"}, "; mv dlpackages.repo /etc/yum.repos.d/dlpackages.repo\n",
 							"yum clean all\n", "/opt/aws/bin/cfn-init ",
 							" --stack ", {
 								"Ref": "AWS::StackName"
@@ -1740,12 +1843,7 @@
 							" --region ", {
 								"Ref": "AWSRegion"
 							}, "\n",
-							"aws s3 cp", " s3://", {
-								"Ref": "QSS3BucketName"
-							}, "/", {
-								"Ref": "QSS3KeyPrefix"
-							}, 
-							"/scripts/configure.sh configure.sh --region ", {"Ref": "AWSRegion"}, ";cat configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
+							"cat /home/ec2-user/configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
 						]]
 					}
 				},
