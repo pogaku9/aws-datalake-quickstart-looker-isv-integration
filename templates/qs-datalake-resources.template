@@ -1463,7 +1463,8 @@
 										"iam:ListAttachedRolePolicies",
 										"iam:ListInstanceProfiles",
 										"iam:ListRolePolicies",
-										"iam:GetInstanceProfile"
+										"iam:GetInstanceProfile",
+										"iam:GetPolicy"
 									],
 									"Resource": ["*"]
 								}
