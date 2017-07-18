@@ -398,17 +398,17 @@
 						"Action": [
 							"es:AddTags",
 							"es:ListTags",
-							"es:RemoveTags",
 							"es:ESHttpGet",
-							"es:ESHttpHead",
-							"es:ESHttpPost",
 							"es:ESHttpPut",
+							"es:ESHttpHead",
+							"es:RemoveTags",
+							"es:ESHttpPost",
+							"es:ListDomainNames",
 							"es:CreateElasticsearchDomain",
 							"es:DescribeElasticsearchDomain",
 							"es:DescribeElasticsearchDomains",
-							"es:DescribeElasticsearchDomainConfig",
-							"es:ListDomainNames",
-							"es:UpdateElasticsearchDomainConfig"
+							"es:UpdateElasticsearchDomainConfig",
+							"es:DescribeElasticsearchDomainConfig"
 						],
 						"Resource": {
 							"Fn::Join": ["", ["arn:aws:es:", {
@@ -482,35 +482,35 @@
 						"Statement": [{
 								"Effect": "Allow",
 								"Action": [
-									"s3:GetAccelerateConfiguration",
-									"s3:GetBucketAcl",
-									"s3:GetBucketCORS",
-									"s3:GetBucketLocation",
-									"s3:GetBucketLogging",
-									"s3:GetBucketNotification",
-									"s3:GetBucketRequestPayment",
-									"s3:GetBucketTagging",
-									"s3:GetBucketVersioning",
 									"s3:GetObject",
+									"s3:ListBucket",
+									"s3:GetBucketAcl",
 									"s3:GetObjectAcl",
+									"s3:GetBucketCORS",
+									"s3:GetBucketLogging",
+									"s3:GetBucketTagging",
 									"s3:GetObjectTagging",
 									"s3:GetObjectTorrent",
 									"s3:GetObjectVersion",
-									"s3:GetObjectVersionAcl",
-									"s3:GetObjectVersionTagging",
-									"s3:ListBucket",
-									"s3:ListBucketMultipartUploads",
+									"s3:GetBucketLocation",
 									"s3:ListBucketVersions",
-									"s3:ListMultipartUploadParts"
+									"s3:GetObjectVersionAcl",
+									"s3:GetBucketVersioning",
+									"s3:GetBucketNotification",
+									"s3:GetBucketRequestPayment",
+									"s3:GetObjectVersionTagging",
+									"s3:ListMultipartUploadParts",
+									"s3:GetAccelerateConfiguration",
+									"s3:ListBucketMultipartUploads"
 								],
 								"Resource": "*"
 							},
 							{
 								"Effect": "Allow",
 								"Action": [
+									"logs:PutLogEvents",
 									"logs:CreateLogGroup",
 									"logs:CreateLogStream",
-									"logs:PutLogEvents",
 									"logs:DescribeLogStreams"
 								],
 								"Resource": ["arn:aws:logs:*:*:*"]
@@ -520,17 +520,17 @@
 								"Action": [
 									"es:AddTags",
 									"es:ListTags",
-									"es:RemoveTags",
 									"es:ESHttpGet",
+									"es:ESHttpPut",
+									"es:RemoveTags",
 									"es:ESHttpHead",
 									"es:ESHttpPost",
-									"es:ESHttpPut",
+									"es:ListDomainNames",
 									"es:CreateElasticsearchDomain",
 									"es:DescribeElasticsearchDomain",
 									"es:DescribeElasticsearchDomains",
-									"es:DescribeElasticsearchDomainConfig",
-									"es:ListDomainNames",
-									"es:UpdateElasticsearchDomainConfig"
+									"es:UpdateElasticsearchDomainConfig",
+									"es:DescribeElasticsearchDomainConfig"
 								],
 								"Resource": [{
 									"Fn::Join": ["", ["arn:aws:es:::domain/dles-", {
@@ -594,15 +594,15 @@
 						"Statement": [{
 							"Effect": "Allow",
 							"Action": [
-								"s3:AbortMultipartUpload",
-								"s3:DeleteObject",
-								"s3:DeleteObjectVersion",
-								"s3:GetBucketLocation",
+								"s3:PutObject",
 								"s3:GetObject",
 								"s3:ListBucket",
-								"s3:ListBucketMultipartUploads",
+								"s3:DeleteObject",
+								"s3:GetBucketLocation",
+								"s3:DeleteObjectVersion",
+								"s3:AbortMultipartUpload",
 								"s3:ListMultipartUploadParts",
-								"s3:PutObject"
+								"s3:ListBucketMultipartUploads"
 							],
 							"Resource": {
 								"Fn::Join": ["", ["arn:aws:s3:::datalake-", {
@@ -806,12 +806,12 @@
 
 								"Effect": "Allow",
 								"Action": [
-									"s3:AbortMultipartUpload",
-									"s3:GetBucketLocation",
 									"s3:GetObject",
+									"s3:PutObject",
 									"s3:ListBucket",
-									"s3:ListBucketMultipartUploads",
-									"s3:PutObject"
+									"s3:GetBucketLocation",
+									"s3:AbortMultipartUpload",
+									"s3:ListBucketMultipartUploads"
 								],
 								"Resource": [{
 										"Fn::Join": ["", ["arn:aws:s3:::", {
@@ -844,11 +844,11 @@
 
 								"Effect": "Allow",
 								"Action": [
+									"es:ESHttpPut",
+									"es:ESHttpPost",
 									"es:DescribeElasticsearchDomain",
 									"es:DescribeElasticsearchDomains",
-									"es:DescribeElasticsearchDomainConfig",
-									"es:ESHttpPost",
-									"es:ESHttpPut"
+									"es:DescribeElasticsearchDomainConfig"
 								],
 								"Resource": [{
 										"Fn::Join": ["", ["arn:aws:es:", {
@@ -954,9 +954,9 @@
 
 								"Effect": "Allow",
 								"Action": [
+									"logs:PutLogEvents",
 									"logs:CreateLogGroup",
 									"logs:CreateLogStream",
-									"logs:PutLogEvents",
 									"logs:DescribeLogStreams"
 								],
 								"Resource": [
@@ -1194,23 +1194,23 @@
 							"Statement": [{
 									"Effect": "Allow",
 									"Action": [
+										"s3:Get*",
+										"s3:Put*",
+										"s3:List*",
 										"s3:CreateBucket",
 										"s3:DeleteBucket",
-										"s3:DeleteObject",
-										"s3:Get*",
-										"s3:List*",
-										"s3:Put*"
+										"s3:DeleteObject"
 									],
 									"Resource": ["*"]
 								},
 								{
 									"Effect": "Allow",
 									"Action": [
+										"cloudformation:SignalResource",
+										"cloudformation:ListStackResources",
 										"cloudformation:DescribeStackEvents",
 										"cloudformation:DescribeStackResource",
-										"cloudformation:DescribeStackResources",
-										"cloudformation:ListStackResources",
-										"cloudformation:SignalResource"
+										"cloudformation:DescribeStackResources"
 									],
 									"Resource": ["arn:aws:cloudformation:*:*:*"]
 								}
@@ -1236,22 +1236,22 @@
 									"Action": [
 
 										"cloudtrail:AddTags",
-										"cloudtrail:CreateTrail",
-										"cloudtrail:DeleteTrail",
-										"cloudtrail:DescribeTrails",
-										"cloudtrail:GetEventSelectors",
-										"cloudtrail:GetTrailStatus",
-										"cloudtrail:ListPublicKeys",
 										"cloudtrail:ListTags",
-										"cloudtrail:LookupEvents",
-										"cloudtrail:PutEventSelectors",
 										"cloudtrail:RemoveTags",
-										"cloudtrail:StartLogging",
+										"cloudtrail:DeleteTrail",
+										"cloudtrail:UpdateTrail",
 										"cloudtrail:StopLogging",
-										"cloudtrail:UpdateTrail"
+										"cloudtrail:CreateTrail",
+										"cloudtrail:LookupEvents",
+										"cloudtrail:StartLogging",
+										"cloudtrail:GetTrailStatus",
+										"cloudtrail:DescribeTrails",
+										"cloudtrail:ListPublicKeys",
+										"cloudtrail:GetEventSelectors",
+										"cloudtrail:PutEventSelectors"
 									],
 
-									"Resource": {"Fn::Join": ["", ["arn:aws:cloudtrail:",{"Ref":"AWSRegion"},":",{"Ref": "AWSAccountID"},":trail/*"]]}
+									"Resource": "*"
 								}
 							]
 						}
@@ -1269,38 +1269,38 @@
 							"Statement": [{
 									"Effect": "Allow",
 									"Action": [
+										"logs:GetLogEvents",
+										"logs:PutLogEvents",
 										"logs:CreateLogGroup",
-										"logs:CreateLogStream",
-										"logs:DeleteDestination",
 										"logs:DeleteLogGroup",
+										"logs:PutDestination",
 										"logs:DeleteLogStream",
-										"logs:DescribeDestinations",
-										"logs:DescribeExportTasks",
+										"logs:CreateLogStream",
+										"logs:FilterLogEvents",
+										"logs:DeleteDestination",
 										"logs:DescribeLogGroups",
 										"logs:DescribeLogStreams",
-										"logs:FilterLogEvents",
-										"logs:GetLogEvents",
-										"logs:PutDestination",
-										"logs:PutDestinationPolicy",
-										"logs:PutLogEvents"
+										"logs:DescribeExportTasks",
+										"logs:DescribeDestinations",
+										"logs:PutDestinationPolicy"
 									],
 									"Resource": ["arn:aws:logs:*:*:*"]
 								},
 								{
 									"Effect": "Allow",
 									"Action": [
-										"cloudwatch:DescribeAlarmHistory",
-										"cloudwatch:DeleteAlarms",
-										"cloudwatch:DescribeAlarms",
-										"cloudwatch:DescribeAlarmsForMetric",
-										"cloudwatch:DisableAlarmActions",
-										"cloudwatch:EnableAlarmActions",
-										"cloudwatch:GetMetricData",
-										"cloudwatch:GetMetricStatistics",
 										"cloudwatch:ListMetrics",
-										"cloudwatch:PutMetricAlarm",
+										"cloudwatch:DeleteAlarms",
+										"cloudwatch:GetMetricData",
 										"cloudwatch:PutMetricData",
-										"cloudwatch:SetAlarmState"
+										"cloudwatch:SetAlarmState",
+										"cloudwatch:DescribeAlarms",
+										"cloudwatch:PutMetricAlarm",
+										"cloudwatch:EnableAlarmActions",
+										"cloudwatch:DisableAlarmActions",
+										"cloudwatch:GetMetricStatistics",
+										"cloudwatch:DescribeAlarmHistory",
+										"cloudwatch:DescribeAlarmsForMetric"
 									],
 									"Resource": ["arn:aws:cloudwatch:*:*:*"]
 								}
@@ -1320,27 +1320,27 @@
 									"Effect": "Allow",
 									"Action": [
 										"ec2:Describe*",
-										"ec2:CreateTags",
-										"ec2:DeleteTags",
-										"ec2:AuthorizeSecurityGroupIngress",
 										"ec2:Describe*",
-										"ec2:StartInstances",
+										"ec2:DeleteTags",
+										"ec2:CreateTags",
 										"ec2:StopInstances",
+										"ec2:StartInstances",
 										"ec2:RebootInstances",
-										"ec2:TerminateInstances"
+										"ec2:TerminateInstances",
+										"ec2:AuthorizeSecurityGroupIngress"
 									],
 									"Resource": ["arn:aws:ec2:*:*:*"]
 								},
 								{
 									"Effect": "Allow",
 									"Action": [
-										"firehose:CreateDeliveryStream",
-										"firehose:DeleteDeliveryStream",
-										"firehose:DescribeDeliveryStream",
-										"firehose:ListDeliveryStreams",
 										"firehose:PutRecord",
 										"firehose:PutRecordBatch",
-										"firehose:UpdateDestination"
+										"firehose:UpdateDestination",
+										"firehose:ListDeliveryStreams",
+										"firehose:CreateDeliveryStream",
+										"firehose:DeleteDeliveryStream",
+										"firehose:DescribeDeliveryStream"
 									],
 									"Resource": ["arn:aws:firehose:*:*:*"]
 								}
@@ -1360,15 +1360,15 @@
 								"Effect": "Allow",
 								"Action": [
 									"es:AddTags",
+									"es:ListTags",
+									"es:RemoveTags",
+									"es:ListDomainNames",
 									"es:CreateElasticsearchDomain",
 									"es:DeleteElasticsearchDomain",
 									"es:DescribeElasticsearchDomain",
 									"es:DescribeElasticsearchDomains",
-									"es:DescribeElasticsearchDomainConfig",
-									"es:ListDomainNames",
-									"es:ListTags",
-									"es:RemoveTags",
-									"es:UpdateElasticsearchDomainConfig"
+									"es:UpdateElasticsearchDomainConfig",
+									"es:DescribeElasticsearchDomainConfig"
 								],
 								"Resource": {
 									"Fn::Join": ["", ["arn:aws:es:", {
@@ -1401,27 +1401,27 @@
 								{
 									"Effect": "Allow",
 									"Action": [
-										"lambda:CreateAlias",
-										"lambda:CreateEventSourceMapping",
-										"lambda:AddPermission",
-										"lambda:DeleteAlias",
-										"lambda:DeleteEventSourceMapping",
-										"lambda:GetAccountSettings",
 										"lambda:GetAlias",
-										"lambda:GetEventSourceMapping",
-										"lambda:GetFunction",
-										"lambda:GetFunctionConfiguration",
 										"lambda:GetPolicy",
 										"lambda:InvokeAsync",
-										"lambda:InvokeFunction",
+										"lambda:CreateAlias",
+										"lambda:DeleteAlias",
+										"lambda:GetFunction",
 										"lambda:ListAliases",
-										"lambda:ListEventSourceMappings",
+										"lambda:UpdateAlias",
+										"lambda:AddPermission",
 										"lambda:ListFunctions",
 										"lambda:PublishVersion",
+										"lambda:InvokeFunction",
 										"lambda:RemovePermission",
-										"lambda:UpdateAlias",
-										"lambda:UpdateEventSourceMapping",
+										"lambda:GetAccountSettings",
 										"lambda:UpdateFunctionCode",
+										"lambda:GetEventSourceMapping",
+										"lambda:CreateEventSourceMapping",
+										"lambda:DeleteEventSourceMapping",
+										"lambda:GetFunctionConfiguration",
+										"lambda:ListEventSourceMappings",
+										"lambda:UpdateEventSourceMapping",
 										"lambda:UpdateFunctionConfiguration"
 									],
 									"Resource": ["arn:aws:lambda:*:*:*"]
@@ -1443,9 +1443,10 @@
 									"Action": [
 										"redshift:ModifyCluster",
 										"redshift:RebootCluster",
+										"redshift:DescribeClusters",
 										"redshift:CancelQuerySession",
 										"redshift:ViewQueriesInConsole",
-										"redshift:DescribeClusters",
+										"redshift:ModifyClusterIamRoles",
 										"redshift:DescribeClusterSecurityGroups"
 									],
 									"Resource": ["arn:aws:redshift:*:*:*"]
@@ -1453,17 +1454,21 @@
 								{
 									"Effect": "Allow",
 									"Action": [
-										"iam:AttachRolePolicy",
-										"iam:PassRole",
-										"iam:PutRolePolicy",
-										"iam:CreateRole",
 										"iam:GetRole",
+										"iam:PassRole",
 										"iam:ListRoles",
+										"iam:GetPolicy",
+										"iam:CreateRole",
+										"iam:PutRolePolicy",
 										"iam:GetRolePolicy",
-										"iam:ListAttachedRolePolicies",
-										"iam:ListInstanceProfiles",
+										"iam:AttachRolePolicy",
 										"iam:ListRolePolicies",
-										"iam:GetInstanceProfile"
+										"iam:GetPolicyVersion",
+										"iam:GetInstanceProfile",
+										"iam:ListInstanceProfiles",
+										"iam:CreateInstanceProfile",
+										"iam:AddRoleToInstanceProfile",									
+										"iam:ListAttachedRolePolicies"
 									],
 									"Resource": ["*"]
 								}
@@ -1483,25 +1488,25 @@
 								"Effect": "Allow",
 								"Action": [
 									"datapipeline:AddTags",
-									"datapipeline:ActivatePipeline",
-									"datapipeline:CreatePipeline",
-									"datapipeline:DeactivatePipeline",
-									"datapipeline:DeletePipeline",
-									"datapipeline:DescribeObjects",
-									"datapipeline:DescribePipelines",
-									"datapipeline:EvaluateExpression",
-									"datapipeline:GetAccountLimits",
-									"datapipeline:GetPipelineDefinition",
-									"datapipeline:ListPipelines",
-									"datapipeline:PollForTask",
-									"datapipeline:PutAccountLimits",
-									"datapipeline:PutPipelineDefinition",
-									"datapipeline:QueryObjects",
-									"datapipeline:RemoveTags",
-									"datapipeline:ReportTaskProgress",
-									"datapipeline:ReportTaskRunnerHeartbeat",
 									"datapipeline:SetStatus",
+									"datapipeline:RemoveTags",
+									"datapipeline:PollForTask",
+									"datapipeline:QueryObjects",
 									"datapipeline:SetTaskStatus",
+									"datapipeline:ListPipelines",
+									"datapipeline:DeletePipeline",
+									"datapipeline:CreatePipeline",
+									"datapipeline:DescribeObjects",
+									"datapipeline:PutAccountLimits",
+									"datapipeline:ActivatePipeline",
+									"datapipeline:GetAccountLimits",
+									"datapipeline:DescribePipelines",
+									"datapipeline:DeactivatePipeline",
+									"datapipeline:ReportTaskProgress",
+									"datapipeline:EvaluateExpression",
+									"datapipeline:GetPipelineDefinition",
+									"datapipeline:PutPipelineDefinition",
+									"datapipeline:ReportTaskRunnerHeartbeat",
 									"datapipeline:ValidatePipelineDefinition"
 								],
 								"Resource": ["*"]
@@ -1556,14 +1561,122 @@
 			"Type": "AWS::AutoScaling::LaunchConfiguration",
 			"Metadata": {
 				"Comment1": "Configure the bootstrap helpers to install the Apache Web Server and PHP",
-
+                "AWS::CloudFormation::Authentication": {
+                    "S3AccessCreds": {
+                        "type": "S3",
+                        "roleName": {
+                            "Ref": "EC2WebserverRole"
+                        }
+                    }
+                },
 				"AWS::CloudFormation::Init": {
 					"configSets": {
-						"Install": ["Install", "Fileset"]
+						"Install": ["Fileset", "Install"]
 					},
 
 					"Fileset": {
 						"files": {
+							"/etc/yum.repos.d/dlpackages.repo": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/repo/dlpackages.repo"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/configure.sh": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/configure.sh"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/writetoES.zip": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/lambdas/writetoES.zip"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/datalake.zip": {
+                                "source": {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            "https://",
+                                            {
+                                                "Ref": "QSS3BucketName"
+                                            },
+                                            ".s3.amazonaws.com/",
+                                            {
+                                                "Ref": "QSS3KeyPrefix"
+                                            },
+                                            "/scripts/web/datalake.zip"
+                                        ]
+                                    ]
+                                },
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
+							"/home/ec2-user/zeppelin-0.7.2-bin-all.tgz": {
+                                "source": "http://apache.claz.org/zeppelin/zeppelin-0.7.2/zeppelin-0.7.2-bin-all.tgz",
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root"
+                            },
+							"/home/ec2-user/TaskRunner-1.0.jar": {
+                                "source": "https://s3.amazonaws.com/datapipeline-us-east-1/us-east-1/software/latest/TaskRunner/TaskRunner-1.0.jar",
+                                "mode": "000644",
+                                "owner": "root",
+                                "group": "root",
+                                "authentication": "S3AccessCreds"
+                            },
 							"/tmp/dl-parameters.file": {
 								"content": {
 									"Fn::Join": [
@@ -1718,20 +1831,14 @@
 				"SecurityGroups": [{
 					"Ref": "WebserverSecurityGroups"
 				}],
+				"KeyName": {
+					"Ref" : "KeyPairName"
+				},
 				"UserData": {
 					"Fn::Base64": {
 						"Fn::Join": ["", [
 							"#!/bin/bash -xev \n",
 							"yum install -y aws-cfn-bootstrap\n",
-							"wget ", " ", {
-								"Fn::FindInMap": ["AWSInfoRegionMap", {
-									"Ref": "AWSRegion"
-								}, "QuickStartS3URL"]
-							}, "/", {
-								"Ref": "QSS3BucketName"
-							}, "/", {
-								"Ref": "QSS3KeyPrefix"
-							}, "/scripts/repo/dlpackages.repo -O /etc/yum.repos.d/dlpackages.repo\n",
 							"yum clean all\n", "/opt/aws/bin/cfn-init ",
 							" --stack ", {
 								"Ref": "AWS::StackName"
@@ -1741,16 +1848,7 @@
 							" --region ", {
 								"Ref": "AWSRegion"
 							}, "\n",
-							"wget ", " ", {
-								"Fn::FindInMap": ["AWSInfoRegionMap", {
-									"Ref": "AWSRegion"
-								}, "QuickStartS3URL"]
-							}, "/", {
-								"Ref": "QSS3BucketName"
-							}, "/", {
-								"Ref": "QSS3KeyPrefix"
-							}, 
-							"/scripts/configure.sh;cat configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
+							"cat /home/ec2-user/configure.sh | tr -d '\r' > configure_l.sh;chmod 777 configure_l.sh;./configure_l.sh "
 						]]
 					}
 				},
