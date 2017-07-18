@@ -669,6 +669,7 @@
             }
         },
         "BastionHost": {
+          	"Condition": "IsLinuxBastion",
             "Description": "Bastion host IP",
             "Value": {
                 "Fn::GetAtt": [
