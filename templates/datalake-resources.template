@@ -549,17 +549,6 @@
             "Type": "AWS::IAM::Role",
             "DependsOn": "RedshiftSecondaryRole",
             "Properties": {
-                "RoleName": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "datalake-lambdaExecutionRole-",
-                            {
-                                "Ref": "TagSuffix"
-                            }
-                        ]
-                    ]
-                },
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -708,17 +697,6 @@
         "RedshiftSecondaryRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "datalake-RedshiftSecondaryRole-",
-                            {
-                                "Ref": "TagSuffix"
-                            }
-                        ]
-                    ]
-                },
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -774,6 +752,10 @@
                                             "",
                                             [
                                                 "arn:aws:s3:::datalake-",
+												{
+													"Ref": "AWS::Region"
+												},
+												"-",
                                                 {
                                                     "Ref": "AWS::AccountId"
                                                 },
@@ -824,6 +806,10 @@
                             "",
                             [
                                 "datalake-",
+								{
+									"Ref": "AWS::Region"
+								},
+								"-",
                                 {
                                     "Ref": "AWS::AccountId"
                                 },
@@ -1030,21 +1016,6 @@
         "FirehoseRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "Datalake-FirehoseRole-",
-                            {
-                                "Ref": "AWS::AccountId"
-                            },
-                            "-",
-                            {
-                                "Ref": "TagSuffix"
-                            }
-                        ]
-                    ]
-                },
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -1412,6 +1383,10 @@
                         "",
                         [
                             "datalake-",
+							{
+                                "Ref": "AWS::Region"
+                            },
+							"-",
                             {
                                 "Ref": "AWS::AccountId"
                             },
@@ -1463,6 +1438,10 @@
                                     "",
                                     [
                                         "arn:aws:s3:::datalake-",
+										{
+											"Ref": "AWS::Region"
+										},
+										"-",
                                         {
                                             "Ref": "AWS::AccountId"
                                         },
@@ -1486,6 +1465,10 @@
                                     "",
                                     [
                                         "arn:aws:s3:::datalake-",
+										{
+											"Ref": "AWS::Region"
+										},
+										"-",
                                         {
                                             "Ref": "AWS::AccountId"
                                         },
@@ -1520,6 +1503,10 @@
                         "",
                         [
                             "datalake-",
+							{
+								"Ref": "AWS::Region"
+							},
+							"-",
                             {
                                 "Ref": "AWS::AccountId"
                             },
@@ -1551,23 +1538,10 @@
                             "Effect": "Deny",
                             "NotPrincipal": {
                                 "AWS": {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "arn:aws:iam::",
-                                            {
-                                                "Ref": "AWS::AccountId"
-                                            },
-                                            ":role/Datalake-FirehoseRole-",
-                                            {
-                                                "Ref": "AWS::AccountId"
-                                            },
-                                            "-",
-                                            {
-                                                "Ref": "TagSuffix"
-                                            }
-                                        ]
-                                    ]
+                                    "Fn::GetAtt": [
+										"FirehoseRole",
+										"Arn"
+									]
                                 },
                                 "Service": "firehose.amazonaws.com"
                             },
@@ -1577,6 +1551,10 @@
                                     "",
                                     [
                                         "arn:aws:s3:::datalake-",
+										{
+											"Ref": "AWS::Region"
+										},
+										"-",
                                         {
                                             "Ref": "AWS::AccountId"
                                         },
@@ -1599,23 +1577,10 @@
                             "Effect": "Deny",
                             "NotPrincipal": {
                                 "AWS": {
-                                    "Fn::Join": [
-                                        "",
-                                        [
-                                            "arn:aws:iam::",
-                                            {
-                                                "Ref": "AWS::AccountId"
-                                            },
-                                            ":role/Datalake-FirehoseRole-",
-                                            {
-                                                "Ref": "AWS::AccountId"
-                                            },
-                                            "-",
-                                            {
-                                                "Ref": "TagSuffix"
-                                            }
-                                        ]
-                                    ]
+                                    "Fn::GetAtt": [
+										"FirehoseRole",
+										"Arn"
+									]
                                 },
                                 "Service": "firehose.amazonaws.com"
                             },
@@ -1625,6 +1590,10 @@
                                     "",
                                     [
                                         "arn:aws:s3:::datalake-",
+										{
+											"Ref": "AWS::Region"
+										},
+										"-",
                                         {
                                             "Ref": "AWS::AccountId"
                                         },
@@ -1660,17 +1629,6 @@
         "EC2WebserverRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
-                "RoleName": {
-                    "Fn::Join": [
-                        "",
-                        [
-                            "dl-webserver-role-",
-                            {
-                                "Ref": "TagSuffix"
-                            }
-                        ]
-                    ]
-                },
                 "AssumeRolePolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
