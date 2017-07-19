@@ -1994,7 +1994,7 @@
 						"LoadBalancerPort": "8080",
 						"InstancePort": "8080",
 						"Protocol": "HTTP"
-					},
+					}
 				],
 				"SecurityGroups": [{
 					"Ref": "ELBSecurityGroups"
