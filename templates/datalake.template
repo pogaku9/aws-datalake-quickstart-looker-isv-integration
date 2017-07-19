@@ -136,7 +136,7 @@
             "Type": "Number",
             "Default": "1"
         },
-        "QSS3BucketName": {
+		"QSS3BucketName": {
             "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
             "ConstraintDescription": "AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
             "Default": "quickstart-reference",
@@ -492,6 +492,12 @@
                         "Fn::GetAtt": [
                             "SecurityGroupStack",
                             "Outputs.WebserverSecurityGroup"
+                        ]
+                    },
+					"ELBSecurityGroups": {
+						"Fn::GetAtt": [
+                            "SecurityGroupStack",
+                            "Outputs.ELBSecurityGroup"
                         ]
                     },
                     "AdminEmailID": {
