@@ -223,16 +223,16 @@
 	"Mappings": {
 		"AWSAMItoRegionMap": {
 			"AMI": {
-				"AMLXPVM": "amazon/amzn-ami-pv-2016.09.1.20170119-x86_64-ebs"
+				"AMZNLINUXPVM": "amzn-ami-pv-2016.09.1.20170119-x86_64-ebs"
 			},
 			"us-east-1": {
-				"AMLXPVM": "ami-7a3dd76c"
+				"AMZNLINUXPVM": "ami-7a3dd76c"
 			},
 			"us-west-2": {
-				"AMLXPVM": "ami-8a72cdea"
+				"AMZNLINUXPVM": "ami-8a72cdea"
 			},
 			"eu-west-1": {
-				"AMLXPVM": "ami-c4bba0a2"
+				"AMZNLINUXPVM": "ami-c4bba0a2"
 			}
 		},
 		"RDSEngineVersionMapping": {
