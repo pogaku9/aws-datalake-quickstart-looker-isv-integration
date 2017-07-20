@@ -25,6 +25,7 @@ CLOUDTRAIL=`cat /tmp/dl-parameters.file | grep -ie "DatalakeCloudTrail" | awk -F
 QuickStartS3URL=`cat /tmp/dl-parameters.file | grep -ie "QuickStartS3URL" | awk -F"|" '{print $2}'`
 QSS3BucketName=`cat /tmp/dl-parameters.file | grep -ie "QSS3BucketName" | awk -F"|" '{print $2}'`
 QSS3KeyPrefix=`cat /tmp/dl-parameters.file | grep -ie "QSS3KeyPrefix" | awk -F"|" '{print $2}'`
+WebserverELBEP=`cat /tmp/dl-parameters.file | grep -ie "WebServerELBEndpoint" | awk -F"|" '{print $2}'`
 REDSHIFTARN="arn:aws:redshift:${REGION}:${ACCOUNT_ID}:cluster:${REDSHIFT_CLUSTERIDENTIFIER}"
 WORKERGROUP="datalakeworkergroup-${ACCOUNT_ID}-${STACKPART}"
 TASKRUNNER="datalaketaskrunner-${ACCOUNT_ID}-${STACKPART}"
@@ -100,7 +101,7 @@ accountid="${ACCOUNT_ID}"
 adminid="${ADMIN_ID}"
 password="${PASSWORD}"
 email="${EMAIL_ID}"
-ipaddress="${IPADDRESS}"
+ipaddress="${WebserverELBEP}"
 
 [stack]
 stackid="${STACKID}"
@@ -148,10 +149,10 @@ fi
 #Sending out email to the Administrator
 if ! aws s3 cp s3://${BUCKET}/multiAZ/instance.active instance.active --region ${REGION} --quiet --sse AES256
 then
-  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${publicdns}&password=${PASSWORD}&redeploy=no";
+  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=no";
   echo "FirstRun-Email-check"
 else
-  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${publicdns}&password=${PASSWORD}&redeploy=yes";
+  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=yes";
   echo "Failover-Email-check"
 fi
 

@@ -97,6 +97,7 @@
             "AllowedPattern": "[a-zA-Z]*[A-Z]+[a-zA-Z0-9]*",
             "ConstraintDescription": "DB Password must start with a letter,contain atleast one upper case letter, one number  & no special characters(Min=8;Max=20 AlphaNumerics)"
         },
+		
         "RDSClass": {
             "Default": "db.t2.small",
             "Description": "Database instance class",
@@ -623,7 +624,96 @@
         }
     },
     "Outputs": {
-        "VPCInfo": {
+        "DatalakeWebUrl": {
+			"Description": "Datalake Webapp URL",
+			"Value": {
+     			"Fn::Join": [
+	          		"",
+		            [
+	               		"http://",
+	                 	{
+	                    	"Fn::GetAtt": [
+								"DatalakeStack",
+								"Outputs.WebServerELBEndpoint"
+							]
+	                 	}
+		            ]
+        		]
+			}
+		},
+		"S3Bucket": {
+			"Description": "S3 Bucket",
+			"Value": {
+				"Fn::GetAtt": [
+                    "DatalakeStack",
+                    "Outputs.S3Bucket"
+                ]
+			}
+		},
+		"ElasticSearchEndpoint": {
+			"Description": "ElasticSearch Endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.ElasticSearchEndpoint"
+				]
+			}
+		},
+		"WebServerELBEndpoint": {
+			"Description": "Datalake WebServer ELB Endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.WebServerELBEndpoint"
+				]
+			}
+		},
+		"LambdaFunction": {
+			"Description": "Lambda Function",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.LambdaFunction"
+				]
+			}
+		},
+		"RDSEndpoint": {
+			"Description": "RDS endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.RDSEndpoint"
+				]
+			}
+		},
+		"RedshiftClusterEndpoint": {
+			"Description": "Redshift Cluster endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.RedshiftClusterEndpoint"
+				]
+			}
+		},
+		"FirehoseDeliveryStream": {
+			"Description": "Firehose delivery stream",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.FirehoseDeliveryStream"
+				]
+			}
+		},
+		"CloudTrail": {
+			"Description": "CloudTrail",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.CloudTrail"
+				]
+    		}
+		},
+		"VPCInfo": {
             "Description": "VPC ID",
             "Value": {
                 "Fn::GetAtt": [
@@ -669,7 +759,7 @@
             }
         },
         "BastionHost": {
-          	"Condition": "IsLinuxBastion",
+			"Condition": "IsLinuxBastion",
             "Description": "Bastion host IP",
             "Value": {
                 "Fn::GetAtt": [
