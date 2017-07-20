@@ -52,13 +52,13 @@
 			"ConstraintDescription": "DB Username must start with a letter & no special characters(Min=4;Max=20 AlphaNumerics)"
 		},
 		"MasterUserPassword": {
-			"Description": "DB Password must start with a letter,contain atleast one upper case letter & no special characters(MinLength=8;MaxLength=20)",
+			"Description": "DB Password. Must be at least 8 characters containing letters, numbers and symbols",
 			"Type": "String",
 			"NoEcho": "true",
 			"MinLength": "8",
 			"MaxLength": "16",
-			"AllowedPattern": "[a-zA-Z]*[A-Z]+[a-zA-Z0-9]*",
-			"ConstraintDescription": "DB Password must start with a letter,contain atleast one upper case letter, one number  & no special characters(Min=8;Max=20 AlphaNumerics)"
+			"AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
+            "ConstraintDescription": "Must be at least 8 characters containing letters, numbers and symbols."
 		},
 		"DBInstanceClass": {
 			"Default": "db.t2.small",
