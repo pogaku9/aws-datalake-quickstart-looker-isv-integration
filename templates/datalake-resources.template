@@ -2476,7 +2476,7 @@
 				]
 			}
 		},
-		"lambdaFunction": {
+		"LambdaFunction": {
 			"Description": "Lambda Function",
 			"Value": {
 				"Ref": "LambdafunctionES"

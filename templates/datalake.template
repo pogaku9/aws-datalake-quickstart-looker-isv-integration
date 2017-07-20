@@ -528,5 +528,95 @@
             }
         }
     },
-    "Outputs": {}
+    "Outputs": {
+    	"DatalakeWebUrl": {
+			"Description": "Datalake Webapp URL",
+			"Value": {
+     			"Fn::Join": [
+	          		"",
+		            [
+	               		"http://",
+	                 	{
+	                    	"Fn::GetAtt": [
+								"DatalakeResourceStack",
+								"Outputs.WebServerELBEndpoint"
+							]
+	                 	}
+		            ]
+        		]
+			}
+		},
+		"S3Bucket": {
+			"Description": "S3 Bucket",
+			"Value": {
+				"Fn::GetAtt": [
+                    "DatalakeResourceStack",
+                    "Outputs.S3Bucket"
+                ]
+			}
+		},
+		"ElasticSearchEndpoint": {
+			"Description": "ElasticSearch Endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.ElasticSearchEndpoint"
+				]
+			}
+		},
+		"WebServerELBEndpoint": {
+			"Description": "Datalake WebServer ELB Endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.WebServerELBEndpoint"
+				]
+			}
+		},
+		"LambdaFunction": {
+			"Description": "Lambda Function",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.LambdaFunction"
+				]
+			}
+		},
+		"RDSEndpoint": {
+			"Description": "RDS endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.RDSEndpoint"
+				]
+			}
+		},
+		"RedshiftClusterEndpoint": {
+			"Description": "Redshift Cluster endpoint",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.RedshiftClusterEndpoint"
+				]
+			}
+		},
+		"FirehoseDeliveryStream": {
+			"Description": "Firehose delivery stream",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.FirehoseDeliveryStream"
+				]
+			}
+		},
+		"CloudTrail": {
+			"Description": "CloudTrail",
+			"Value": {
+				"Fn::GetAtt": [
+					"DatalakeResourceStack",
+					"Outputs.CloudTrail"
+				]
+			}
+		}
+  	}
 }
