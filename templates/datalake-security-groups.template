@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "This template creates the security groups for the Cloudwick Datalake solution.",
+    "Description": "This template creates the security groups for the Cloudwick Datalake solution.(qs-1ngojrsrq)",
     "Parameters": {
         "VPC": {
             "Description": "VPC ID for Security groups",

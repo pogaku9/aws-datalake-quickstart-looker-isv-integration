@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Cloudwick Data lake quick start deployment master template.",
+    "Description": "Cloudwick Data lake quick start deployment master template.(qs-1ngojrss0)",
     "Parameters": {
         "AdminEmailID": {
             "AllowedPattern": "^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$",

@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "This template creates the resources for the Cloudwick datalake solution.",
+    "Description": "This template creates the resources for the Cloudwick datalake solution.(qs-1ngojrsrl)",
     "Parameters": {
         "AdminEmailID": {
             "AllowedPattern": "^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$",
