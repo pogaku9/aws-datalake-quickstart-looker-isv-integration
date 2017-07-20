@@ -2322,7 +2322,7 @@
 						{
 							"Ref": "AWS::Region"
 						},
-						"AMLXPVM"
+						"AMZNLINUXPVM"
 					]
 				},
 				"IamInstanceProfile": {
