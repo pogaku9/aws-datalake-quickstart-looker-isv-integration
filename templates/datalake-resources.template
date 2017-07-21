@@ -2102,7 +2102,7 @@
                     {
                         "LoadBalancerPort": "8080",
                         "InstancePort": "8080",
-                        "Protocol": "HTTP"
+                        "Protocol": "TCP"
                     }
                 ],
                 "SecurityGroups": [
@@ -2645,10 +2645,23 @@
         "WebServerELBEndpoint": {
             "Description": "Datalake WebServer ELB Endpoint",
             "Value": {
-                "Fn::GetAtt": [
-                    "WebServerLoadBalancer",
-                    "DNSName"
-                ]
+                "Fn::Join": [
+					"",
+					[
+						"Please Visit the http://",
+						{
+							"Fn::GetAtt": [
+								"WebServerLoadBalancer",
+								"DNSName"
+							]
+						},
+						"/ to access the Data Lake Webportal. Login credentials for the portal are: ",
+						{
+							"Ref": "MasterUsername"
+						},
+						" / < password you chosen during stack launch >"
+					]
+				]
             }
         }
     }
