@@ -626,18 +626,10 @@
         "DatalakeWebUrl": {
             "Description": "Datalake Webapp URL",
             "Value": {
-                "Fn::Join": [
-                    "",
-                    [
-                        "http://",
-                        {
-                            "Fn::GetAtt": [
-                                "DatalakeStack",
-                                "Outputs.WebServerELBEndpoint"
-                            ]
-                        }
-                    ]
-                ]
+				"Fn::GetAtt": [
+					"DatalakeStack",
+					"Outputs.WebServerELBEndpoint"
+				]
             }
         },
         "S3Bucket": {
