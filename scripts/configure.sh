@@ -141,7 +141,7 @@ chown -R apache:apache /var/www/
 if ! aws s3 cp s3://${BUCKET}/multiAZ/instance.active instance.active --region ${REGION} --quiet --sse AES256
 then
 #attach iam role to redshift
-curl http://${IPADDRESS}/scripts/attach-iam-role-to-redshift.php;
+curl http://${WebserverELBEP}/scripts/attach-iam-role-to-redshift.php;
 echo "FirstRun-RedshiftRoleModify-check"
 fi
 
@@ -149,10 +149,10 @@ fi
 #Sending out email to the Administrator
 if ! aws s3 cp s3://${BUCKET}/multiAZ/instance.active instance.active --region ${REGION} --quiet --sse AES256
 then
-  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=no";
+  curl http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=no";
   echo "FirstRun-Email-check"
 else
-  curl http://${IPADDRESS}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=yes";
+  curl http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=yes";
   echo "Failover-Email-check"
 fi
 
