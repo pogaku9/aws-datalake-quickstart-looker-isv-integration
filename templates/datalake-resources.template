@@ -56,12 +56,12 @@
             "Description": "Security Groups for data lake web server ELB",
             "Type": "String"
         },
-        "ElasticSearchInstanceCount": {
+        "ElasticsearchInstanceCount": {
             "Default": "1",
             "Description": "Elasticsearch instance count",
             "Type": "Number"
         },
-        "ElasticSearchInstanceType": {
+        "ElasticsearchInstanceType": {
             "AllowedValues": [
                 "t2.medium.elasticsearch",
                 "m3.medium.elasticsearch",
@@ -73,12 +73,12 @@
             "Description": "Elasticsearch instance type",
             "Type": "String"
         },
-        "ElasticSearchVolumeSize": {
+        "ElasticsearchVolumeSize": {
             "Default": "20",
             "Description": "Elasticsearch instance Volume size",
             "Type": "Number"
         },
-        "ElasticSearchVolumeType": {
+        "ElasticsearchVolumeType": {
             "AllowedValues": [
                 "gp2",
                 "standard",
@@ -438,21 +438,21 @@
                 "ElasticsearchClusterConfig": {
                     "DedicatedMasterEnabled": "false",
                     "InstanceCount": {
-                        "Ref": "ElasticSearchInstanceCount"
+                        "Ref": "ElasticsearchInstanceCount"
                     },
                     "ZoneAwarenessEnabled": false,
                     "InstanceType": {
-                        "Ref": "ElasticSearchInstanceType"
+                        "Ref": "ElasticsearchInstanceType"
                     }
                 },
                 "EBSOptions": {
                     "EBSEnabled": true,
                     "Iops": 0,
                     "VolumeSize": {
-                        "Ref": "ElasticSearchVolumeSize"
+                        "Ref": "ElasticsearchVolumeSize"
                     },
                     "VolumeType": {
-                        "Ref": "ElasticSearchVolumeType"
+                        "Ref": "ElasticsearchVolumeType"
                     }
                 },
                 "SnapshotOptions": {
@@ -2079,7 +2079,7 @@
                         "Ref": "PublicSubnet1"
                     },
                     {
-                        "Ref": "PrivateSubnet2"
+                        "Ref": "PublicSubnet2"
                     }
                 ],
                 "LoadBalancerName": {
@@ -2123,6 +2123,9 @@
             "Type": "AWS::AutoScaling::AutoScalingGroup",
             "Properties": {
                 "VPCZoneIdentifier": [
+                    {
+                        "Ref": "PrivateSubnet1"
+                    },
                     {
                         "Ref": "PrivateSubnet2"
                     }
@@ -2577,8 +2580,8 @@
                 "Ref": "DatalakeCloudtrail"
             }
         },
-        "ElasticSearchEndpoint": {
-            "Description": "ElasticSearch Endpoint",
+        "ElasticsearchEndpoint": {
+            "Description": "Elasticsearch Endpoint",
             "Value": {
                 "Fn::GetAtt": [
                     "ElasticsearchDomain",
