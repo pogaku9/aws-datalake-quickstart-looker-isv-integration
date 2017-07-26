@@ -2,7 +2,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Description": "Cloudwick Data lake quick start deployment master template.(qs-1ngojrss0)",
     "Parameters": {
-        "AdministratorEmail ": {
+        "AdministratorEmail": {
             "AllowedPattern": "^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$",
             "ConstraintDescription": "Can contain only ASCII characters.",
             "Description": "Admin email id - email will be sent to this address on stack completion with further instructions (check inbox/spam in about 15-20mins)",
@@ -279,7 +279,7 @@
                     },
                     "Parameters": [
                         "AdministratorName",
-                        "AdministratorEmail "
+                        "AdministratorEmail"
                     ]
                 },
                 {
@@ -293,7 +293,7 @@
                 }
             ],
             "ParameterLabels": {
-                "AdministratorEmail ": {
+                "AdministratorEmail": {
                     "default": "Administrator Email"
                 },
                 "AdministratorName": {
@@ -501,8 +501,8 @@
                             "Outputs.ELBSecurityGroup"
                         ]
                     },
-                    "AdministratorEmail ": {
-                        "Ref": "AdministratorEmail "
+                    "AdminEmailID": {
+                        "Ref": "AdministratorEmail"
                     },
                     "QSS3BucketName": {
                         "Ref": "QSS3BucketName"
