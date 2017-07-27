@@ -51,7 +51,7 @@ function getCatalogedBuckets(){
 }
 
 function getMenubar() {
-    print '	
+    print '
 		<!-- start of navbar -->
 		<nav class="navbar navbar-default">
 		  <div class="container-fluid">
@@ -72,8 +72,8 @@ function getMenubar() {
         print '
 			  <ul class="nav navbar-nav navbar-right">
 			    <li class="dropdown">
-				  <a href="#" class="dropdown-toggle" 
-				        title="Data Management" data-toggle="dropdown" role="button" 
+				  <a href="#" class="dropdown-toggle"
+				        title="Data Management" data-toggle="dropdown" role="button"
 				        aria-haspopup="true" aria-expanded="false">
 				        <i class="fa fa-cogs"></i> Data Management <span class="caret"></span>
 				  </a>
@@ -82,7 +82,7 @@ function getMenubar() {
                         <a class="t1" title="Explore S3" href="../s3/index.php?action=listBuckets">
                             <span class="glyphicon glyphicon-cloud-upload"></span> S3 Explorer
                         </a>
-                    </li>  
+                    </li>
                     <li>
                         <a class="t1" title="Explore Metadata" href="../data-management/kibana.php">
                             <span class="glyphicon glyphicon-book"></span> Explore Catalogue
@@ -99,23 +99,23 @@ function getMenubar() {
 				    <a class="t1" title="List all Data Lake resources" href="../aws-resources/"><span class="fa fa-cubes"></span> Resources</a>
 				</li>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" 
-				        title="Visualize data" data-toggle="dropdown" role="button" 
+				  <a href="#" class="dropdown-toggle"
+				        title="Visualize data" data-toggle="dropdown" role="button"
 				        aria-haspopup="true" aria-expanded="false">
 				        <i class="fa fa-line-chart"></i> Visualize <span class="caret"></span>
 				  </a>
 				  <ul class="dropdown-menu">
                     <li>
                         <a class="t1" title="Visualize Data from Redshift or files" href="../visualize/zeppelin.php"><span class="glyphicon glyphicon-dashboard"></span> Explore Data</a>
-                    </li>             
+                    </li>
                     <li>
                         <a class="t1" title="Explore CloudTrail" href="../visualize/cloudtrail.php"><span class="glyphicon glyphicon-console"></span> Explore API calls</a>
-                    </li>                   
+                    </li>
 				  </ul>
-				</li>   
+				</li>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" 
-				        data-toggle="dropdown" role="button" aria-haspopup="true" 
+				  <a href="#" class="dropdown-toggle"
+				        data-toggle="dropdown" role="button" aria-haspopup="true"
 				        aria-expanded="false">
 				        <i class="fa fa-user-o"></i>    ' .$_SESSION['DatalakeUser'].' <span class="caret"></span>
 				  </a>
@@ -132,13 +132,13 @@ function getMenubar() {
 					    </a>
 					</li>
 					<li>
-					  <a href="#" title="Help">
+					  <a href="http://www.cloudwick.com/contact-us/" title="Help" target="_blank">
 					    <span class="glyphicon glyphicon-question-sign"></span> Help
 					  </a>
 					</li>
 					<li role="separator" class="divider"></li>
 					<li>
-					    <a href="../aws-resources/stack-destroyer.php" class="text-danger" 
+					    <a href="../aws-resources/stack-destroyer.php" class="text-danger"
 					        title="Delete Cloudformation Stack">
 					        <span class="glyphicon glyphicon-trash"></span> Delete Stack
 					    </a>
@@ -156,7 +156,7 @@ function getMenubar() {
         print '
             <ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                         role="button" aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user"></span>&nbsp;Login <span class="caret"></span>
                   </a>
