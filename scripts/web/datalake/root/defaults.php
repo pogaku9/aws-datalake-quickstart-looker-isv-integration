@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 $inifile = "../root/datalake.ini";
 $resourceInfo = parse_ini_file($inifile,true);
 

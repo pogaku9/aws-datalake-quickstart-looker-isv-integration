@@ -22,7 +22,7 @@ if(isset($_POST["inputLegit3"])){
     // abandoned after datalake 2nd status review --susheel 04/11/2017
 } else {
 
-    $query = "select * from datalake.user where `username`='" . _ADMIN . "'";
+    $query = "select * from "._RDS_DATABASE.".user where `username`='" . _ADMIN . "'";
     $result = $mysqlConnector->query($query);
     if ($result->rowCount() > 0) {
         print '<div class="alert alert-danger">You are already registered, New registrations are disabled by administrator</div>';

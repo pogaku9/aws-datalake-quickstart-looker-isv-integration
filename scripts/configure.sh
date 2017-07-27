@@ -149,10 +149,10 @@ fi
 #Sending out email to the Administrator
 if ! aws s3 cp s3://${BUCKET}/multiAZ/instance.active instance.active --region ${REGION} --quiet --sse AES256
 then
-  curl http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=no";
+  curl -XPOST http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=no";
   echo "FirstRun-Email-check"
 else
-  curl http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=yes";
+  curl -XPOST http://${WebserverELBEP}/scripts/send-completion-email.php --data "region=${REGION}&username=${ADMIN_ID}&email=${EMAIL_ID}&ip=${WebserverELBEP}&password=${PASSWORD}&redeploy=yes";
   echo "Failover-Email-check"
 fi
 
