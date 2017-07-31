@@ -1,7 +1,7 @@
 global:
   marketplace-ami: false
   owner: sshvans@amazon.com
-  qsname: quickstart-data-lake-cloudwick
+  qsname: quickstart-datalake-cloudwick
   regions:
     - ap-northeast-1
     - ap-northeast-2
