@@ -14,7 +14,7 @@ You can also use the AWS CloudFormation templates as a starting point for your o
 
 ![Quick Start architecture for data lake foundation on AWS](https://d0.awsstatic.com/partner-network/QuickStart/datasheets/data-lake-architecture-on-the-aws-cloud.png)
 
-For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://s3.amazonaws.com/quickstart-reference/data/lake/cloudwick/latest/doc/data-lake-foundation-wth-zeppelin-and-amazon-rds-on-the-aws-cloud.pdf).
+For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://s3.amazonaws.com/quickstart-reference/datalake/cloudwick/latest/doc/data-lake-foundation-wth-zeppelin-and-amazon-rds-on-the-aws-cloud.pdf).
 
 To post feedback, submit feature ideas, or report bugs, use the **Issues** section of this GitHub repo.
 If you'd like to submit code for this Quick Start, please review the [AWS Quick Start Contributor's Kit](https://aws-quickstart.github.io/). 
