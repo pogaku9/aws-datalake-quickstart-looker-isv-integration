@@ -90,7 +90,7 @@
                 <button class="btn btn-primary" type="button">
                     <span class="badge">
                         <b><span class="glyphicon glyphicon-tags"></span> Tags</b>
-                    </span> 
+                    </span>
                     '._TAG_KEY.' => '._TAG_VALUE.'
                 </button>
             </li>
@@ -98,7 +98,7 @@
                 <button class="btn btn-primary" type="button">
                     <span class="badge">
                         <b><span class="glyphicon glyphicon-map-marker"></span> Region</b>
-                    </span> 
+                    </span>
                     '._REGION.'
                 </button>
             </li>
@@ -106,7 +106,7 @@
                 <button class="btn btn-primary" type="button">
                     <span class="badge">
                         <b><span class="glyphicon glyphicon-cog"></span> Resource Type</b>
-                    </span> 
+                    </span>
                     All
                 </button>
             </li>
@@ -125,21 +125,21 @@
                         '.$bucketname.' <i class="fa fa-link"></i>
                     </a>
                 </dd>
-                
+
                 <dt>
                     Creation Date
                 </dt>
                 <dd class="text-primary">
                     '.$bucketcreationdate.'
                 </dd>
-                
+
                 <dt>
                     Bucket Policy
                 </dt>
                 <dd class="text-primary">
                     '.$bucketlifecyclepolicy.'
                 </dd>
-              </dl>').'              
+              </dl>').'
             </div>
         </div>
         <div class="clearfix"></div><br>
@@ -154,38 +154,38 @@
                 <dd class="text-primary">
                     '.$redshiftobject["Clusters"][0]["ClusterIdentifier"].'
                 </dd>
-                
+
                 <dt>
                     Endpoint
                 </dt>
                 <dd class="text-primary">
                     <a href="../aws-resources/redshift.php?explore=table" title="Explore redshift">
-                        '.$redshiftobject["Clusters"][0]["Endpoint"]["Address"].':'.$redshiftobject["Clusters"][0]["Endpoint"]["Port"].' 
+                        '.$redshiftobject["Clusters"][0]["Endpoint"]["Address"].':'.$redshiftobject["Clusters"][0]["Endpoint"]["Port"].'
                         <i class="fa fa-link"></i>
                     </a>
                 </dd>
-                
+
                 <dt>
                     NodeType
                 </dt>
                 <dd class="text-primary">
                     '.$redshiftobject["Clusters"][0]["NodeType"].'
                 </dd>
-                
+
                 <dt>
                     Database Name
                 </dt>
                 <dd class="text-primary">
                     '.$redshiftobject["Clusters"][0]["DBName"].'
                 </dd>
-                
+
                 <dt>
                     Creation Date
                 </dt>
                 <dd class="text-primary">
                     '.$redshiftobject["Clusters"][0]["ClusterCreateTime"].'
                 </dd>
-                
+
                 <dt>
                     Connect
                 </dt>
@@ -196,24 +196,24 @@
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                            <a href="#" class="customMessage" 
-                                title="Instructions to connect to Tableau*" 
+                            <a href="#" class="customMessage"
+                                title="Instructions to connect to Tableau*"
                                 data-url="../aws-resources/connection-instructions.php?sw=tableau">
                                 <i class="fa fa-clone"></i> Tableau <small class="text-danger">*</small>
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="#" class="customMessage" 
-                                title="Instructions to connect to SQL Workbench/J*" 
+                            <a href="#" class="customMessage"
+                                title="Instructions to connect to SQL Workbench/J*"
                                 data-url="../aws-resources/connection-instructions.php?sw=sqlworkbench">
                                 <i class="fa fa-clone"></i> SQL Workbench/J <small class="text-danger">*</small>
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="#" class="customMessage" 
-                                title="Instructions to connect to other Connectors" 
+                            <a href="#" class="customMessage"
+                                title="Instructions to connect to other Connectors"
                                 data-url="../aws-resources/connection-instructions.php?sw=otherredshift">
                                 <i class="fa fa-clone"></i> Other Connectors
                             </a>
@@ -235,33 +235,33 @@
                     Instance Identifier
                 </dt>
                 <dd class="text-primary">
-                    <a href="../aws-resources/rds.php" title="Explore redshift">
-                        '.$rdsobject["DBInstances"][0]["Endpoint"]["Address"].':'.$rdsobject["DBInstances"][0]["Endpoint"]["Port"].' 
+                    <a href="../aws-resources/rds.php" title="Explore RDS">
+                        '.$rdsobject["DBInstances"][0]["Endpoint"]["Address"].':'.$rdsobject["DBInstances"][0]["Endpoint"]["Port"].'
                         <i class="fa fa-link"></i>
                     </a>
                 </dd>
-                
+
                 <dt>
                     Engine
                 </dt>
                 <dd class="text-primary">
                     '.$rdsobject["DBInstances"][0]["Engine"].'
                 </dd>
-                
+
                 <dt>
                     Database Name
                 </dt>
                 <dd class="text-primary">
                     '.$rdsobject["DBInstances"][0]["DBName"].'
                 </dd>
-                
+
                 <dt>
                     Creation Date
                 </dt>
                 <dd class="text-primary">
                     '.$rdsobject["DBInstances"][0]["InstanceCreateTime"].'
                 </dd>
-                
+
                 <dt>
                     Connect
                 </dt>
@@ -272,16 +272,16 @@
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                            <a href="#" class="customMessage" 
-                                title="Instructions to connect to MySQL Workbench*" 
+                            <a href="#" class="customMessage"
+                                title="Instructions to connect to MySQL Workbench*"
                                 data-url="../aws-resources/connection-instructions.php?sw=mysqlworkbench">
                                 <i class="fa fa-clone"></i> MySQL Workbench <small class="text-danger">*</small>
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="#" class="customMessage" 
-                                title="Instructions to connect via Shell*" 
+                            <a href="#" class="customMessage"
+                                title="Instructions to connect via Shell*"
                                 data-url="../aws-resources/connection-instructions.php?sw=shell">
                                 <i class="fa fa-clone"></i> Connect Via Shell <small class="text-danger">*</small>
                             </a>
@@ -289,7 +289,7 @@
                         <li role="separator" class="divider"></li>
                         <li>
                             <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html" target="_blank">
-                               <i class="fa fa-external-link-square"></i> More on RDS 
+                               <i class="fa fa-external-link-square"></i> More on RDS
                             </a>
                         </li>
                       </ul>
@@ -310,9 +310,9 @@
                 <dd class="text-primary">
                     '._WORKER_GROUP_NAME.'
                 </dd>
-              </dl>  
-                <a class="btn btn-warning btn-lg btn-block customMessage" 
-                    data-url="../aws-resources/connection-instructions.php?sw=datapipeline" 
+              </dl>
+                <a class="btn btn-warning btn-lg btn-block customMessage"
+                    data-url="../aws-resources/connection-instructions.php?sw=datapipeline"
                     title="Run a datapipeline">
                     Run a datapipeline
                 </a>
