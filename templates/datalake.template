@@ -405,6 +405,31 @@
                 }
             }
         },
+        "LookerStack": {
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "TemplateURL": {
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/LookerAMILaunch.template"
+                },
+                "Parameters": {
+                    "KeyName": {
+                        "Ref": "KeyPairName"
+                    },    
+                    "VpcId": {
+                        "Ref": "VPCID"
+                    },
+                    "SubnetID": {
+                        "Ref": "PublicSubnet1ID"
+                    },
+                    "SecurityGroupIds": {
+                        "Fn::GetAtt": [
+                            "SecurityGroupStack",
+                            "Outputs.LookerSecurityGroup"
+                        ]
+                    }
+                }
+            }
+        },
         "DatalakeResourceStack": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {

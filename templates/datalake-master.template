@@ -3,6 +3,7 @@
     "Description": "Cloudwick Data lake quick start deployment master template.(qs-1ngojrsrg)",
     "Parameters": {
         "AccessCIDR": {
+            "Default": "0.0.0.0/0",
             "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
             "ConstraintDescription": "Must be a valid IP range in x.x.x.x/x notation",
             "Description": "The CIDR IP range that is permitted to access datalake webserver instances. Note: a value of 0.0.0.0/0 will allow access from ANY ip address",
@@ -18,6 +19,7 @@
             "Type": "String"
         },
         "AdministratorEmail": {
+            "Default": "rajiv.kurapati@cloudwick.com",
             "AllowedPattern": "^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$",
             "ConstraintDescription": "Can contain only ASCII characters.",
             "Description": "Admin email id - email will be sent to this address on stack completion with further instructions (check inbox/spam in about 15-20mins)",
@@ -52,6 +54,7 @@
             "Type": "String"
         },
         "RDSPassword": {
+            "Default": "Admin1234",
             "AllowedPattern": "(?=^.{6,255}$)((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*",
             "ConstraintDescription": "Must be 8 characters or more containing at least on uppercase and one lowercase letter, one number.",
             "Description": "DB Password for RDS, Redshift and Portal access. Must be 8 characters or more containing at least one uppercase letter, one lowercase letter and one number. It can use any printable ASCII characters (ASCII code 33 to 126) except ' (single quote), \" (double quote) , \\, /, @, or space",
@@ -179,14 +182,14 @@
         "QSS3BucketName": {
             "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
             "ConstraintDescription": "AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
-            "Default": "quickstart-reference",
+            "Default": "aws-datalake-looker-integration",
             "Description": "S3 bucket name for the AWS Quick Start assets.AWS Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
             "Type": "String"
         },
         "QSS3KeyPrefix": {
             "AllowedPattern": "^[0-9a-zA-Z-/]*$",
             "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
-            "Default": "datalake/cloudwick/latest/",
+            "Default": "",
             "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         },

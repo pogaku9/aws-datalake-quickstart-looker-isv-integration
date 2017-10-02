@@ -143,7 +143,36 @@
                     }
                 ]
             }
-        }
+        },
+        "LookerSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow access to Looker from Internet",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "8080",
+                        "ToPort": "8080",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "IpProtocol": "-1"
+                    }
+                ]
+            }
+        },
     },
     "Outputs": {
         "ELBSecurityGroup": {
@@ -168,6 +197,12 @@
             "Description": "Web Server Security Group",
             "Value": {
                 "Ref": "WebserverSecurityGroup"
+            }
+        },
+        "LookerSecurityGroup": {
+            "Description": "Looker AMI Security Group",
+            "Value": {
+                "Ref": "LookerSecurityGroup"
             }
         }
     }
