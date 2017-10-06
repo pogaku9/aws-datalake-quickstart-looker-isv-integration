@@ -98,6 +98,10 @@ function getMenubar() {
 				<li>
 				    <a class="t1" title="List all Data Lake resources" href="../aws-resources/"><span class="fa fa-cubes"></span> Resources</a>
 				</li>
+				</li>
+				<li>
+				    <a class="t1" title="Looker Instance" href="https://'._LOOKER_INSTANCE_ENDPOINT.'" target="_blank"><span class="fa fa-superpowers"></span> Looker</a>
+				</li>
 				<li class="dropdown">
 				  <a href="#" class="dropdown-toggle"
 				        title="Visualize data" data-toggle="dropdown" role="button"

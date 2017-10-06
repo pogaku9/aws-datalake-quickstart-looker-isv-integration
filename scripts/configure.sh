@@ -26,6 +26,7 @@ QuickStartS3URL=`cat /tmp/dl-parameters.file | grep -ie "QuickStartS3URL" | awk 
 QSS3BucketName=`cat /tmp/dl-parameters.file | grep -ie "QSS3BucketName" | awk -F"|" '{print $2}'`
 QSS3KeyPrefix=`cat /tmp/dl-parameters.file | grep -ie "QSS3KeyPrefix" | awk -F"|" '{print $2}'`
 WebserverELBEP=`cat /tmp/dl-parameters.file | grep -ie "WebServerELBEndpoint" | awk -F"|" '{print $2}'`
+LookerInstanceEP=`cat /tmp/dl-parameters.file | grep -ie "LookerInstanceEndpoint" | awk -F"|" '{print $2}'`
 REDSHIFTARN="arn:aws:redshift:${REGION}:${ACCOUNT_ID}:cluster:${REDSHIFT_CLUSTERIDENTIFIER}"
 WORKERGROUP="datalakeworkergroup-${ACCOUNT_ID}-${STACKPART}"
 TASKRUNNER="datalaketaskrunner-${ACCOUNT_ID}-${STACKPART}"
@@ -131,6 +132,9 @@ streamname="${STREAMNAME}"
 
 [cloudtrail]
 cloudtrailname="${CLOUDTRAIL}"
+
+[looker]
+lookerendpoint="${LookerInstanceEP}"
 
 EOT
 

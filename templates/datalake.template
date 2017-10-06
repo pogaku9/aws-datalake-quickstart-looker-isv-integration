@@ -414,7 +414,7 @@
                 "Parameters": {
                     "KeyName": {
                         "Ref": "KeyPairName"
-                    },    
+                    },
                     "VpcId": {
                         "Ref": "VPCID"
                     },
@@ -425,6 +425,29 @@
                         "Fn::GetAtt": [
                             "SecurityGroupStack",
                             "Outputs.LookerSecurityGroup"
+                        ]
+                    },
+                    "TagSuffix": {
+                        "Fn::Select": [
+                            "4",
+                            {
+                                "Fn::Split": [
+                                    "-",
+                                    {
+                                        "Fn::Select": [
+                                            "2",
+                                            {
+                                                "Fn::Split": [
+                                                    "/",
+                                                    {
+                                                        "Ref": "AWS::StackId"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 }
@@ -534,6 +557,12 @@
                     },
                     "QSS3KeyPrefix": {
                         "Ref": "QSS3KeyPrefix"
+                    },
+                    "LookerInstanceEndpoint": {
+                        "Fn::GetAtt": [
+                            "LookerStack",
+                            "Outputs.PublicDNS"
+                        ]
                     },
                     "ElasticsearchVolumeSize": {
                         "Ref": "ElasticsearchVolumeSize"

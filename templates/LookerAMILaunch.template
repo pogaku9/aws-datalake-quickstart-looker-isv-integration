@@ -20,8 +20,12 @@
             "Type" : "String",
             "ConstraintDescription" : "Specify Security Group."
         },
+        "TagSuffix": {
+            "Description": "StackID suffix to append to the resources",
+            "Type": "String"
+        },
         "InstanceType": {
-            "Description": "WebServer EC2 instance type",
+            "Description": "Looker AMI EC2 instance type",
             "Type": "String",
             "Default": "t2.medium",
             "AllowedValues": [
@@ -52,7 +56,7 @@
                 "m4.10xlarge"
             ],
             "ConstraintDescription": "Must be a valid EC2 instance type related to Looker."
-        }  
+        }
     },
     "Mappings": {
         "AWSInstanceType2Arch": {
@@ -231,6 +235,26 @@
                 "InstanceType": {
                     "Ref": "InstanceType"
                 },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "datalake-looker-instance-",
+                                    {
+                                        "Ref": "AWS::AccountId"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
+                ],
                 "SubnetId": {"Ref": "SubnetID"},
                 "SecurityGroupIds": [ { "Ref": "SecurityGroupIds" } ],
                 "KeyName": {

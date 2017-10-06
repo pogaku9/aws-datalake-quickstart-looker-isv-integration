@@ -49,4 +49,5 @@ define("_CATLOG_LAMBDA_NAME","datalake-catlamb-"._ACCOUNT_ID."-"._STACK_UID);
 define("_CATLOG_LAMBDA_ARN","arn:aws:lambda:"._REGION.":"._ACCOUNT_ID.":function:datalake-catlamb-"._ACCOUNT_ID."-"._STACK_UID);
 
 
+define("_LOOKER_INSTANCE_ENDPOINT",$resourceInfo["looker"]["lookerendpoint"]);
 ?>
