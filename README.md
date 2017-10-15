@@ -1,6 +1,10 @@
 # quickstart-datalake-cloudwick
 ## Data Lake Foundation on the AWS Cloud with Apache Zeppelin, Amazon RDS, and Other AWS Services
 
+
+# this version installs LOOKER, please be check costs associated before proceeding
+
+
 This Quick Start deploys a data lake foundation that integrates various AWS Cloud services and components to help you migrate data to the AWS Cloud, and store, monitor, and analyze the data.
 
 The deployment uses Amazon Simple Storage Service (Amazon S3) as a core service to store the data, and deploys Apache Zeppelin and Kibana for analyzing and visualizing the data. It also integrates with Amazon Relational Database Service (Amazon RDS), AWS Data Pipeline, Amazon Redshift, Amazon Elasticsearch Service (Amazon ES), Amazon Kinesis Firehose, and AWS CloudTrail.
