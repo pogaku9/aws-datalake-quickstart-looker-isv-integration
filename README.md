@@ -1,8 +1,8 @@
-# quickstart-datalake-cloudwick
-## Data Lake Foundation on the AWS Cloud with Apache Zeppelin, Amazon RDS, and Other AWS Services
+# quickstart-datalake-cloudwick-ISV-integration
+## Data Lake Foundation on the AWS Cloud with Looker, Apache Zeppelin, Amazon RDS, and Other AWS Services
 
 
-# this version installs LOOKER, please be check costs associated before proceeding
+## *This version installs [LOOKER](https://aws.amazon.com/marketplace/seller-profile?id=f2b415a2-1013-4f3f-ba68-ad1895504098), please check costs associated before proceeding*
 
 
 This Quick Start deploys a data lake foundation that integrates various AWS Cloud services and components to help you migrate data to the AWS Cloud, and store, monitor, and analyze the data.
