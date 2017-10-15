@@ -1,0 +1,22 @@
+[
+    {
+        "ParameterKey": "AccessCIDR",
+        "ParameterValue": "10.0.0.0/0"
+    },
+    {
+        "ParameterKey": "AdministratorEmail",
+        "ParameterValue": "abc@example.com"
+    },
+    {
+        "ParameterKey": "RDSPassword",
+        "ParameterValue": "$[alfred_genpass_8]"
+    },
+    {
+        "ParameterKey": "KeyPairName",
+        "ParameterValue": "$[alfred_getkeypair]"
+    },
+    {
+        "ParameterKey": "AvailabilityZones",
+        "ParameterValue": "$[alfred_genaz_2]"
+    }
+]

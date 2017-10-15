@@ -1,0 +1,470 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Cloudwick Data lake quick start deployment Sample Linux/ Looker template.",
+    "Parameters": {
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+        "VpcId" : {
+     		"Type" : "String",
+      	 	"Description" : "VpcId of your existing Virtual Private Cloud (VPC)"
+    	},
+        "PublicSubnet1": {
+            "Description": "Public Subnet for Looker ELB",
+            "Type": "String"
+        },
+        "PublicSubnet2": {
+            "Description": "Public Subnet for Looker ELB",
+            "Type": "String"
+        },
+        "PrivateSubnet1": {
+            "Description": "Private Subnet for Looker Instance",
+            "Type": "String"
+        },
+        "PrivateSubnet2": {
+            "Description": "Private Subnet for Looker Instance",
+            "Type": "String"
+        },
+        "LookerInstanceSecurityGroup" : {
+            "Description" : "Specify Security Group",
+            "Type" : "String",
+            "ConstraintDescription" : "Specify Security Group."
+        },
+        "LookerELBSecurityGroup" : {
+            "Description" : "Specify Security Group",
+            "Type" : "String",
+            "ConstraintDescription" : "Specify Security Group."
+        },
+        "TagSuffix": {
+            "Description": "StackID suffix to append to the resources",
+            "Type": "String"
+        },
+        "InstanceType": {
+            "Description": "Looker AMI EC2 instance type",
+            "Type": "String",
+            "Default": "t2.medium",
+            "AllowedValues": [
+                "t2.medium",
+                "m3.medium",
+                "m3.large",
+                "m3.2xlarge",
+                "c3.large",
+                "c3.xlarge",
+                "c3.2xlarge",
+                "c3.4xlarge",
+                "c3.8xlarge",
+                "r3.large",
+                "r3.xlarge",
+                "r3.2xlarge",
+                "r3.4xlarge",
+                "r3.8xlarge",
+                "c4.large",
+                "c4.xlarge",
+                "c4.2xlarge",
+                "c4.4xlarge",
+                "c4.8xlarge",
+                "t2.large",
+                "m4.large",
+                "m4.xlarge",
+                "m4.2xlarge",
+                "m4.4xlarge",
+                "m4.10xlarge"
+            ],
+            "ConstraintDescription": "Must be a valid EC2 instance type related to Looker."
+        }
+    },
+    "Mappings": {
+        "AWSInstanceType2Arch": {
+            "t2.medium": {
+                "Arch": "HVM64"
+            },
+            "m3.medium": {
+                "Arch": "HVM64"
+            },
+            "m3.large": {
+                "Arch": "HVM64"
+            },
+            "m3.xlarge": {
+                "Arch": "HVM64"
+            },
+            "m3.2xlarge": {
+                "Arch": "HVM64"
+            },
+            "c3.large": {
+                "Arch": "HVM64"
+            },
+            "c3.xlarge": {
+                "Arch": "HVM64"
+            },
+            "c3.2xlarge": {
+                "Arch": "HVM64"
+            },
+            "c3.4xlarge": {
+                "Arch": "HVM64"
+            },
+            "c3.8xlarge": {
+                "Arch": "HVM64"
+            },
+            "r3.large": {
+                "Arch": "HVM64"
+            },
+            "r3.xlarge": {
+                "Arch": "HVM64"
+            },
+            "r3.2xlarge": {
+                "Arch": "HVM64"
+            },
+            "r3.4xlarge": {
+                "Arch": "HVM64"
+            },
+            "r3.8xlarge": {
+                "Arch": "HVM64"
+            },
+            "c4.large": {
+                "Arch": "HVM64"
+            },
+            "c4.xlarge": {
+                "Arch": "HVM64"
+            },
+            "c4.2xlarge": {
+                "Arch": "HVM64"
+            },
+            "c4.4xlarge": {
+                "Arch": "HVM64"
+            },
+            "c4.8xlarge": {
+                "Arch": "HVM64"
+            },
+            "t2.large": {
+                "Arch": "HVM64"
+            },
+            "m4.large": {
+                "Arch": "HVM64"
+            },
+            "m4.xlarge": {
+                "Arch": "HVM64"
+            },
+            "m4.2xlarge": {
+                "Arch": "HVM64"
+            },
+            "m4.4xlarge": {
+                "Arch": "HVM64"
+            },
+            "m4.10xlarge": {
+                "Arch": "HVM64"
+            }
+        },
+        "AWSInstanceType2NATArch": {
+            "t2.medium": {
+                "Arch": "NATHVM64"
+            },
+            "m3.medium": {
+                "Arch": "NATHVM64"
+            },
+            "m3.large": {
+                "Arch": "NATHVM64"
+            },
+            "m3.xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "m3.2xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c3.large": {
+                "Arch": "NATHVM64"
+            },
+            "c3.xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c3.2xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c3.4xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c3.8xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "r3.large": {
+                "Arch": "NATHVM64"
+            },
+            "r3.xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "r3.2xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "r3.4xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "r3.8xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c4.large": {
+                "Arch": "NATHVM64"
+            },
+            "c4.xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c4.2xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c4.4xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "c4.8xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "t2.large": {
+                "Arch": "NATHVM64"
+            },
+            "m4.large": {
+                "Arch": "NATHVM64"
+            },
+            "m4.xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "m4.2xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "m4.4xlarge": {
+                "Arch": "NATHVM64"
+            },
+            "m4.10xlarge": {
+                "Arch": "NATHVM64"
+            }
+        },
+        "AWSRegionArch2AMI": {
+            "us-east-1": {
+                "HVM64": "ami-c23041d4"
+            },
+            "us-west-2": {
+                "HVM64": "ami-be98fdde"
+            }
+        }
+    },
+    "Resources": {
+        "LookerIamProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "LookerRole"
+                    }
+                ]
+            }
+        },
+        "LookerRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "dl-Looker-policy-asg-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        },
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "*"
+                                    ],
+                                    "Resource": [
+                                        "arn:aws:autoscaling:*:*:*"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "LookerInstanceLoadBalancer": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "Subnets": [
+                    {
+                        "Ref": "PublicSubnet1"
+                    },
+                    {
+                        "Ref": "PublicSubnet2"
+                    }
+                ],
+                "LoadBalancerName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "dl-looker-elb-",
+                            {
+                                "Ref": "TagSuffix"
+                            }
+                        ]
+                    ]
+                },
+                "Listeners": [
+                    {
+                        "LoadBalancerPort": "80",
+                        "InstancePort": "80",
+                        "Protocol": "HTTP"
+                    },
+                    {
+                        "LoadBalancerPort": "443",
+                        "InstancePort": "443",
+                        "Protocol": "TCP"
+                    }
+                ],
+                "SecurityGroups": [
+                    {
+                        "Ref": "LookerELBSecurityGroup"
+                    }
+                ],
+                "HealthCheck": {
+                    "Target": "HTTPS:443/setup/marketplace",
+                    "HealthyThreshold": "3",
+                    "UnhealthyThreshold": "5",
+                    "Interval": "30",
+                    "Timeout": "5"
+                }
+            }
+        },
+        "LookerAutoScalingGroup": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "PrivateSubnet1"
+                    },
+                    {
+                        "Ref": "PrivateSubnet2"
+                    }
+                ],
+                "LaunchConfigurationName": {
+                    "Ref": "LookerLaunchConfig"
+                },
+                "MaxSize": "1",
+                "MinSize": "1",
+                "LoadBalancerNames": [
+                    {
+                        "Ref": "LookerInstanceLoadBalancer"
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "solution",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "datalake-",
+                                    {
+                                        "Ref": "AWS::AccountId"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "datalake-looker-instance-",
+                                    {
+                                        "Ref": "AWS::AccountId"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        },
+                        "PropagateAtLaunch": "true"
+                    }
+                ]
+            }
+        },
+        "LookerLaunchConfig": {
+            "Type": "AWS::AutoScaling::LaunchConfiguration",
+            "Properties": {
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AWSRegionArch2AMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        {
+                            "Fn::FindInMap": [
+                                "AWSInstanceType2Arch",
+                                {
+                                    "Ref": "InstanceType"
+                                },
+                                "Arch"
+                            ]
+                        }
+                    ]
+                },
+                "IamInstanceProfile": {
+                    "Ref": "LookerIamProfile"
+                },
+                "InstanceType": {
+                    "Ref": "InstanceType"
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "LookerInstanceSecurityGroup"
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "LookerInstanceELBEndpoint": {
+            "Description": "Looker ELB Endpoint",
+            "Value": {
+                "Fn::GetAtt": [
+                    "LookerInstanceLoadBalancer",
+                    "DNSName"
+                ]
+            }
+        }
+    }
+}
