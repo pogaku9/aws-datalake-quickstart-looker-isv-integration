@@ -144,10 +144,57 @@
                 ]
             }
         },
-        "LookerSecurityGroup": {
+        "LookerInstanceSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupDescription": "Allow access to Looker from Internet",
+                "GroupDescription": "Allow access to Looker Instance (AWS Quick Start)",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "LookerELBSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "443",
+                        "ToPort": "443",
+                        "SourceSecurityGroupId": {
+                            "Fn::GetAtt": [
+                                "LookerELBSecurityGroup",
+                                "GroupId"
+                            ]
+                        }
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": {
+                            "Ref": "VPCCIDR"
+                        }
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "CidrIp": "0.0.0.0/0",
+                        "IpProtocol": "-1"
+                    }
+                ]
+            }
+        },
+        "LookerELBSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow access to Looker Instance(AWS Quick Start) through the ELB",
                 "VpcId": {
                     "Ref": "VPC"
                 },
@@ -172,7 +219,7 @@
                     }
                 ]
             }
-        },
+        }
     },
     "Outputs": {
         "ELBSecurityGroup": {
@@ -199,10 +246,16 @@
                 "Ref": "WebserverSecurityGroup"
             }
         },
-        "LookerSecurityGroup": {
+        "LookerInstanceSecurityGroup": {
             "Description": "Looker AMI Security Group",
             "Value": {
-                "Ref": "LookerSecurityGroup"
+                "Ref": "LookerInstanceSecurityGroup"
+            }
+        },
+        "LookerELBSecurityGroup": {
+            "Description": "Looker ELB Security Group",
+            "Value": {
+                "Ref": "LookerELBSecurityGroup"
             }
         }
     }

@@ -19,7 +19,7 @@
             "Type": "String"
         },
         "AdministratorEmail": {
-            "Default": "",
+            "Default": "user@cloudwick.com",
             "AllowedPattern": "^[a-z0-9]+(\\.[_a-z0-9]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,15})$",
             "ConstraintDescription": "Can contain only ASCII characters.",
             "Description": "Admin email id - email will be sent to this address on stack completion with further instructions (check inbox/spam in about 15-20mins)",

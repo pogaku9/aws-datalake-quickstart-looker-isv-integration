@@ -11,11 +11,28 @@
      		"Type" : "String",
       	 	"Description" : "VpcId of your existing Virtual Private Cloud (VPC)"
     	},
-        "SubnetID" : {
-            "Type" : "String",
-            "Description" : "The SubnetIds in your Virtual Private Cloud (VPC)"
+        "PublicSubnet1": {
+            "Description": "Public Subnet for Looker ELB",
+            "Type": "String"
         },
-        "SecurityGroupIds" : {
+        "PublicSubnet2": {
+            "Description": "Public Subnet for Looker ELB",
+            "Type": "String"
+        },
+        "PrivateSubnet1": {
+            "Description": "Private Subnet for Looker Instance",
+            "Type": "String"
+        },
+        "PrivateSubnet2": {
+            "Description": "Private Subnet for Looker Instance",
+            "Type": "String"
+        },
+        "LookerInstanceSecurityGroup" : {
+            "Description" : "Specify Security Group",
+            "Type" : "String",
+            "ConstraintDescription" : "Specify Security Group."
+        },
+        "LookerELBSecurityGroup" : {
             "Description" : "Specify Security Group",
             "Type" : "String",
             "ConstraintDescription" : "Specify Security Group."
@@ -229,13 +246,157 @@
         }
     },
     "Resources": {
-        "EC2Instance": {
-            "Type": "AWS::EC2::Instance",
+        "LookerIamProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
             "Properties": {
-                "InstanceType": {
-                    "Ref": "InstanceType"
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "LookerRole"
+                    }
+                ]
+            }
+        },
+        "LookerRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
                 },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "dl-Looker-policy-asg-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        },
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "*"
+                                    ],
+                                    "Resource": [
+                                        "arn:aws:autoscaling:*:*:*"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "LookerInstanceLoadBalancer": {
+            "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+            "Properties": {
+                "Subnets": [
+                    {
+                        "Ref": "PublicSubnet1"
+                    },
+                    {
+                        "Ref": "PublicSubnet2"
+                    }
+                ],
+                "LoadBalancerName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "dl-looker-elb-",
+                            {
+                                "Ref": "TagSuffix"
+                            }
+                        ]
+                    ]
+                },
+                "Listeners": [
+                    {
+                        "LoadBalancerPort": "80",
+                        "InstancePort": "80",
+                        "Protocol": "HTTP"
+                    },
+                    {
+                        "LoadBalancerPort": "443",
+                        "InstancePort": "443",
+                        "Protocol": "TCP"
+                    }
+                ],
+                "SecurityGroups": [
+                    {
+                        "Ref": "LookerELBSecurityGroup"
+                    }
+                ],
+                "HealthCheck": {
+                    "Target": "HTTPS:443/setup/marketplace",
+                    "HealthyThreshold": "3",
+                    "UnhealthyThreshold": "5",
+                    "Interval": "30",
+                    "Timeout": "5"
+                }
+            }
+        },
+        "LookerAutoScalingGroup": {
+            "Type": "AWS::AutoScaling::AutoScalingGroup",
+            "Properties": {
+                "VPCZoneIdentifier": [
+                    {
+                        "Ref": "PrivateSubnet1"
+                    },
+                    {
+                        "Ref": "PrivateSubnet2"
+                    }
+                ],
+                "LaunchConfigurationName": {
+                    "Ref": "LookerLaunchConfig"
+                },
+                "MaxSize": "1",
+                "MinSize": "1",
+                "LoadBalancerNames": [
+                    {
+                        "Ref": "LookerInstanceLoadBalancer"
+                    }
+                ],
                 "Tags": [
+                    {
+                        "Key": "solution",
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    "datalake-",
+                                    {
+                                        "Ref": "AWS::AccountId"
+                                    },
+                                    "-",
+                                    {
+                                        "Ref": "TagSuffix"
+                                    }
+                                ]
+                            ]
+                        },
+                        "PropagateAtLaunch": "true"
+                    },
                     {
                         "Key": "Name",
                         "Value": {
@@ -252,14 +413,15 @@
                                     }
                                 ]
                             ]
-                        }
+                        },
+                        "PropagateAtLaunch": "true"
                     }
-                ],
-                "SubnetId": {"Ref": "SubnetID"},
-                "SecurityGroupIds": [ { "Ref": "SecurityGroupIds" } ],
-                "KeyName": {
-                    "Ref": "KeyName"
-                },
+                ]
+            }
+        },
+        "LookerLaunchConfig": {
+            "Type": "AWS::AutoScaling::LaunchConfiguration",
+            "Properties": {
                 "ImageId": {
                     "Fn::FindInMap": [
                         "AWSRegionArch2AMI",
@@ -276,32 +438,31 @@
                             ]
                         }
                     ]
+                },
+                "IamInstanceProfile": {
+                    "Ref": "LookerIamProfile"
+                },
+                "InstanceType": {
+                    "Ref": "InstanceType"
+                },
+                "SecurityGroups": [
+                    {
+                        "Ref": "LookerInstanceSecurityGroup"
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
                 }
             }
         }
     },
     "Outputs": {
-        "InstanceId": {
-            "Description": "InstanceId of the newly created EC2 instance",
-            "Value": {
-                "Ref": "EC2Instance"
-            }
-        },
-        "AZ": {
-            "Description": "Availability Zone of the newly created EC2 instance",
+        "LookerInstanceELBEndpoint": {
+            "Description": "Looker ELB Endpoint",
             "Value": {
                 "Fn::GetAtt": [
-                    "EC2Instance",
-                    "AvailabilityZone"
-                ]
-            }
-        },
-        "PublicDNS": {
-            "Description": "Public DNSName of the newly created EC2 instance",
-            "Value": {
-                "Fn::GetAtt": [
-                    "EC2Instance",
-                    "PublicDnsName"
+                    "LookerInstanceLoadBalancer",
+                    "DNSName"
                 ]
             }
         }
