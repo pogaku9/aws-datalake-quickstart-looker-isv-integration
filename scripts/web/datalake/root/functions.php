@@ -100,7 +100,9 @@ function getMenubar() {
 				</li>
 				</li>
 				<li>
-				    <a class="t1" title="Looker Instance" href="https://'._LOOKER_INSTANCE_ENDPOINT.'" target="_blank"><span class="fa fa-superpowers"></span> Looker</a>
+				    <a class="t1 customMessage" title="Looker Instance" data-url="../looker/instructions.php">
+                     <img src="../resources/images/looker-logo.png" style="width:2.5rem;height: 2.5rem;display:inline-block;background: rgb(255, 255, 255);border: 1px solid white;border-radius: 0.4rem;"/> Looker
+                    </a>
 				</li>
 				<li class="dropdown">
 				  <a href="#" class="dropdown-toggle"

@@ -96,6 +96,15 @@
         public function getElasticsearchClient($region=null){
             return new Aws\ElasticsearchService\ElasticsearchServiceClient($this->getConfig($region));
         }
+        }
+
+        /**
+         * @param null $region
+         * @return \Aws\Ec2\Ec2Client
+         */
+        public function getEC2Client($region=null){
+            return new Aws\Ec2\Ec2Client($this->getConfig($region));
+        }
     }
 
 ?>

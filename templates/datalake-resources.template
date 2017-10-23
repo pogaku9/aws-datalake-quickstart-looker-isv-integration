@@ -1829,7 +1829,6 @@
                                     "Effect": "Allow",
                                     "Action": [
                                         "ec2:Describe*",
-                                        "ec2:Describe*",
                                         "ec2:DeleteTags",
                                         "ec2:CreateTags",
                                         "ec2:StopInstances",
@@ -1840,6 +1839,15 @@
                                     ],
                                     "Resource": [
                                         "arn:aws:ec2:*:*:*"
+                                    ]
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ec2:DescribeInstances"
+                                    ],
+                                    "Resource": [
+                                        "*"
                                     ]
                                 },
                                 {
