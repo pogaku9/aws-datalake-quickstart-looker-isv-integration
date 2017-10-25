@@ -1,4 +1,4 @@
-# quickstart-datalake-cloudwick-ISV-integration
+# [quickstart-datalake-cloudwick-ISV-integration](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=CWDLQS-Looker-Intg-00&templateURL=https://s3-us-west-2.amazonaws.com/aws-datalake-looker-integration/templates/datalake-master.template)
 ## Data Lake Foundation on the AWS Cloud with Looker, Apache Zeppelin, Amazon RDS, and Other AWS Services
 
 
