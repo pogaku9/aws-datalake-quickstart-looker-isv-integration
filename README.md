@@ -16,7 +16,7 @@ The AWS CloudFormation templates included with the Quick Start automate the foll
 
 You can also use the AWS CloudFormation templates as a starting point for your own implementation.
 
-![Quick Start architecture for data lake foundation on AWS](/images/aws-dl-qs-arch.png)
+![Quick Start architecture for data lake foundation on AWS](/images/aws-qs-dl-arch.png)
 
 For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://s3.amazonaws.com/quickstart-reference/datalake/cloudwick/latest/doc/data-lake-foundation-wth-zeppelin-and-amazon-rds-on-the-aws-cloud.pdf).
 
